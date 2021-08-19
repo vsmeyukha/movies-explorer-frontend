@@ -1,0 +1,23 @@
+.link {
+  font-family: 'Inter', Arial, sans-serif;
+  color: white;
+  
+  transition: .3s;
+}
+
+.link:hover {
+  color: #2BE080;
+  transition: .3s;
+}
+
+.link_header {
+  text-decoration: none;
+}
+
+.link_nav-tab {
+  margin-right: 40px;
+}
+
+/* .link_nav-tab:last-child {
+  margin-right: 0;
+} */
