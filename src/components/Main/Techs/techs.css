@@ -1,0 +1,19 @@
+@import url(./__borderline/techs__borderline.css);
+@import url(./__description/techs__description.css);
+@import url(./__icon-text/techs__icon-text.css);
+@import url(./__icon/techs__icon.css);
+@import url(./__icons/techs__icons.css);
+@import url(./__number/techs__number.css);
+@import url(./__title/techs__title.css);
+
+.techs {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-color: #F5F5F5;
+
+  padding: 100px 70px;
+}

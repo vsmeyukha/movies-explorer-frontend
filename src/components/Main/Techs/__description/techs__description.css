@@ -1,0 +1,11 @@
+.techs__description {
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 1.43;
+  text-align: center;
+
+  max-width: 500px;
+
+  margin: 26px 0 0 0;
+}
