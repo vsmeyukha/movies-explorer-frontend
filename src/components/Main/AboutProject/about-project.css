@@ -1,0 +1,19 @@
+@import url(./__title/about-project__title.css);
+@import url(./__borderline/about-project__borderline.css);
+@import url(./__description-container/about-project__description-container.css);
+@import url(./__description-title/about-project__description-title.css);
+@import url(./__description/about-project__description.css);
+@import url(./__scale-big-part/about-project__scale-big-part.css);
+@import url(./__scale-container/about-project__scale-container.css);
+@import url(./__scale-description/about-project__scale-description.css);
+@import url(./__scale-small-part/about-project__scale-small-part.css);
+@import url(./__scale-text/about-project__scale-text.css);
+
+.about-project {
+  width: 100%;
+  padding: 110px 70px 0 70px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+}

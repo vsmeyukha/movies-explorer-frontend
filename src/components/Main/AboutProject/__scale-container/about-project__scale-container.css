@@ -1,0 +1,8 @@
+.about-project__scale-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+
+  margin-top: 110px;
+  margin-bottom: 110px;
+}

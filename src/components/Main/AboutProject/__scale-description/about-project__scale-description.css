@@ -1,0 +1,21 @@
+.about-project__scale-description {
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 1.22;
+  text-align: center;
+  color: #A0A0A0;
+
+  margin: 14px 0 0 0;
+}
+
+.about-project__scale-description_small {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.about-project__scale-description_big {
+  grid-column-start: 2;
+  grid-column-end: 6;
+  grid-row: 2;
+}
