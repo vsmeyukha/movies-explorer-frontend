@@ -1,0 +1,12 @@
+.promo__img {
+  width: 320px;
+  height: 320px;
+
+  margin-top: 82px;
+  margin-bottom: 122px;
+  
+  background-image: url(../../../../images/promo.svg);
+
+  
+
+}

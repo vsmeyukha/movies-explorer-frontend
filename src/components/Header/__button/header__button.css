@@ -1,0 +1,22 @@
+.header__button {
+  height: 32px;
+  width: 76px;
+
+  font-family: 'Inter', Arial, sans-serif;
+
+  margin-left: 30px;
+
+  background-color: #2BE080;
+
+  border-radius: 3px;
+  border: none;
+
+  cursor: pointer;
+
+  transition: .3s;
+}
+
+.header__button:hover {
+  background-color: white;
+  color: #2BE080;
+}

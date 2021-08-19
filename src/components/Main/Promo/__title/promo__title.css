@@ -1,0 +1,16 @@
+.promo__title {
+  color: white;
+
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 50px;
+  line-height: 1.16;
+
+
+  position: absolute;
+  top: 135px;
+  left: 275px;
+
+  max-width: 730px;
+
+  text-align: center;
+}
