@@ -3,6 +3,7 @@
 @import url(./AboutProject/about-project.css);
 @import url(./Techs/techs.css);
 @import url(./AboutMe/about-me.css);
+@import url(./Portfolio/portfolio.css);
 
 .main {
   width: 100%;

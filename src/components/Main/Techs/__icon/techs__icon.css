@@ -9,8 +9,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: .3s;
 }
 
 .techs__icon:first-child {
   margin-left: 0;
+}
+
+.techs__icon:hover {
+  background-color: #2BE080;
+  transition: .3s;
 }
