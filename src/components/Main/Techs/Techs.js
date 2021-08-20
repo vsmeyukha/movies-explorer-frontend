@@ -3,8 +3,8 @@ import React from 'react';
 function Techs() {
   return (
     <section className="techs">
-      <h4 className="techs__title">Технологии</h4>
-      <div className="techs__borderline"></div>
+      <h4 className="title">Технологии</h4>
+      <div className="borderline"></div>
       <h3 className="techs__number">7 технологий</h3>
       <p className="techs__description">На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.</p>
       <div className="techs__icons">

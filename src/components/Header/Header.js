@@ -6,7 +6,7 @@ function Header(props) {
       <div className="header__logo"></div>
       <div className="header__auth">
       <a href="/" className="link link_header">Registration</a>
-        <button className="header__button">Выйти</button>
+        <button className="header__button">Войти</button>
       </div>
     </header>
   )

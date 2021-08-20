@@ -1,0 +1,9 @@
+.about-me__links {
+  display: flex;
+
+
+  list-style-type: none;
+
+  margin: 99px 0 0 0;
+  padding: 0;
+}

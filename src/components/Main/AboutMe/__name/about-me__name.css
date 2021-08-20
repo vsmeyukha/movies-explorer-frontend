@@ -1,10 +1,8 @@
-.techs__title {
+.about-me__name {
   font-family: 'Inter', Arial, sans-serif;
   font-weight: normal;
-  font-size: 22px;
-  line-height: auto;
-
-  width: 100%;
+  font-size: 50px;
+  line-height: 1.16;
 
   margin: 0;
 }

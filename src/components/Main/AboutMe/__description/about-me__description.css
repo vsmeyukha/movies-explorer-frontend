@@ -1,0 +1,10 @@
+.about-me__description {
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 1.57;
+
+  max-width: 600px;
+
+  margin: 26px 0 0 0;
+}
