@@ -1,0 +1,16 @@
+@import url(./__borderline/footer__borderline.css);
+@import url(./__copyright/footer__copyright.css);
+@import url(./__info/footer__info.css);
+@import url(./__links/footer__links.css);
+@import url(./__paragraph/footer__paragraph.css);
+@import url(./__title/footer__title.css);
+
+.footer {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 79px 70px 20px 70px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

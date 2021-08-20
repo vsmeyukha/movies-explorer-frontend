@@ -35,3 +35,9 @@
 .link_portfolio-arrow {
   transform: rotate(315deg);
 }
+
+.link_footer {
+  font-size: 13px;
+  color: black;
+  text-decoration: none;
+}

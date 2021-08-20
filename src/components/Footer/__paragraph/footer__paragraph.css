@@ -1,0 +1,7 @@
+.footer__paragraph {
+  margin-left: 20px;
+}
+
+.footer__paragraph:first-child {
+  margin-left: 0;
+}
