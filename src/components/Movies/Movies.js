@@ -1,8 +1,11 @@
 import React from 'react';
+import MoviesCard from './MoviesCard/MoviesCard';
 
 function Movies() {
   return (
-    <p> Eto component Movies</p>
+    <>
+      <MoviesCard />
+    </>
   );
 };
 

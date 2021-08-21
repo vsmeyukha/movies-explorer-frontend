@@ -6,6 +6,8 @@
 
 @import url(./components/Main/main.css);
 
+@import url(./components/Movies/movies.css);
+
 @import url(./components/Footer/footer.css);
 
 @import url(./styles/styles.css);

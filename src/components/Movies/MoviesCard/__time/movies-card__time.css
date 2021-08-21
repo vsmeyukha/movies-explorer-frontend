@@ -1,0 +1,9 @@
+.movies-card__time {
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: normal;
+  font-size: 11px;
+  color: #A0A0A0;
+
+  margin: 6px 0 0 0;
+  padding: 0;
+}

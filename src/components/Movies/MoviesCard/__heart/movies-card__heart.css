@@ -1,0 +1,12 @@
+.movies-card__heart {
+  width: 10px;
+  height: 9px;
+
+  background-image: url(../../../../images/white-heart.svg);
+
+  margin: 0;
+  padding: 0;
+}
+.movies-card__heart:hover {
+  background-image: url(../../../../images/red-heart.svg);
+}

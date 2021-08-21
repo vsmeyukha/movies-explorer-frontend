@@ -9,7 +9,7 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 function App() {
   return (
     <div className="page">
-      <Header></Header>
+      <Header />
       <Route exact path="/">
         <Main />
       </Route>
@@ -19,7 +19,7 @@ function App() {
       <Route path="/saved-movies">
         <SavedMovies />
       </Route>
-      <Footer></Footer>
+      <Footer />
     </div>
   )
 }

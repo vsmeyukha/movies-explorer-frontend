@@ -1,0 +1,14 @@
+@import url(./__borderline/movies-card__borderline.css);
+@import url(./__heart/movies-card__heart.css);
+@import url(./__info/movies-card__info.css);
+@import url(./__like/movies-card__like.css);
+@import url(./__photo/movies-card__photo.css);
+@import url(./__time/movies-card__time.css);
+@import url(./__title/movies-card__title.css);
+
+.movies-card {
+  width: 270px;
+
+  display: flex;
+  flex-direction: column;
+}
