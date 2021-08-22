@@ -1,8 +1,13 @@
 import React from 'react';
+import SearchForm from '../Movies/SearchForm/SearchForm';
+import MoviesCardList from './MoviesCardList/MoviesCardList';
 
 function Movies() {
   return (
-    <p> Eto component Saved Movies</p>
+    <>
+      <SearchForm />
+      <MoviesCardList />
+    </>
   );
 };
 

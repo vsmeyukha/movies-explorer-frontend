@@ -23,7 +23,7 @@ function Header(props) {
 
   return (
     <header className={setHeaderSelector()}>
-      <Link exact to="/">
+      <Link to="/">
         <div className={!isLoggedIn ? headerSelectors.logo : `${headerSelectors.logo} ${headerSelectors.logoLoggedIn}`}></div>
       </Link>
       {
