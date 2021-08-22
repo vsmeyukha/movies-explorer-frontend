@@ -2,7 +2,7 @@ import React from 'react';
 import FilterCheckBox from '../FilterCheckbox/FilterCheckbox';
 
 function SearchForm() {
-  let fieldsetSelectors = {
+  const fieldsetSelectors = {
     passive: 'search-form__fieldset',
     active: 'search-form__fieldset_active'
   }

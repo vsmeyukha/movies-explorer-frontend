@@ -1,7 +1,13 @@
 @import url(./__auth/header__auth.css);
-@import url(./__button/header__button.css);
+@import url(./__films/header__films.css);
 @import url(./__link/header__link.css);
+@import url(./__link/_active/header__link_active.css);
+@import url(./__logged-in-navigation/header__logged-in-navigation.css);
 @import url(./__logo/header__logo.css);
+@import url(./__logo/_logged-in/header__logo_logged-in.css);
+@import url(./__profile/header__profile.css);
+@import url(./__reg-button/header__reg-button.css);
+@import url(./__to-profile-button/header__to-profile-button.css);
 
 .header {
   width: 100%;

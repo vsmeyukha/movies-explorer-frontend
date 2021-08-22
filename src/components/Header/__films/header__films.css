@@ -1,0 +1,4 @@
+.header__films {
+  display: flex;
+  justify-content: space-between;
+}

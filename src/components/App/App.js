@@ -1,4 +1,4 @@
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -10,15 +10,17 @@ function App() {
   return (
     <div className="page">
       <Header />
-      <Route exact path="/">
-        <Main />
-      </Route>
-      <Route path="/movies">
-        <Movies />
-      </Route>
-      <Route path="/saved-movies">
-        <SavedMovies />
-      </Route>
+      <Switch>
+        <Route exact path="/">
+          <Main />
+        </Route>
+        <Route path="/movies">
+          <Movies />
+        </Route>
+        <Route path="/saved-movies">
+          <SavedMovies />
+        </Route>
+      </Switch>
       <Footer />
     </div>
   )

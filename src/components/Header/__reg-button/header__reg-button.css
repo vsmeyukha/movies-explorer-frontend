@@ -1,4 +1,4 @@
-.header__button {
+.header__reg-button {
   height: 32px;
   width: 76px;
 
@@ -17,7 +17,7 @@
   transition: .3s;
 }
 
-.header__button:hover {
+.header__reg-button:hover {
   background-color: white;
   color: #2BE080;
 }

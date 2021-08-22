@@ -1,13 +1,39 @@
 import React from 'react';
+import { useLocation, Link } from 'react-router-dom';
+import { headerSelectors } from '../../utils/consts';
+import HeaderNotLoggedIn from './HeaderNotLoggedIn';
+import HeaderLoggedIn from './HeaderLoggedIn';
 
 function Header(props) {
+  const location = useLocation();
+
+  let isLoggedIn;
+
+  if (location.pathname === '/movies' || location.pathname === '/saved-movies') {
+    isLoggedIn = true;
+  }
+
+  const setHeaderSelector = () => {
+    if (location.pathname === '/') {
+      return `${headerSelectors.header}`;
+    } else {
+      return `${headerSelectors.header} ${headerSelectors.headerFilms}`
+    }
+  };
+
   return (
-    <header className="header">
-      <div className="header__logo"></div>
-      <div className="header__auth">
-        <a href="/" className="link link_header">Registration</a>
-        <button className="header__button">Войти</button>
-      </div>
+    <header className={setHeaderSelector()}>
+      <Link exact to="/">
+        <div className={!isLoggedIn ? headerSelectors.logo : `${headerSelectors.logo} ${headerSelectors.logoLoggedIn}`}></div>
+      </Link>
+      {
+        !isLoggedIn
+          ?
+          <HeaderNotLoggedIn />
+          :
+          <HeaderLoggedIn />
+      }
+
     </header>
   )
 };

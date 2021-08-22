@@ -1,0 +1,19 @@
+.header__to-profile-button {
+  margin-left: 13px;
+
+  height: 30px;
+  width: 30px;
+
+  border: none;
+  border-radius: 6px;
+
+  background: center no-repeat url(../../../images/profile.svg);
+  background-color: #F5F5F5;
+
+  transition: .3s;
+}
+
+.header__to-profile-button:hover {
+  box-shadow: 2px 2px 6px #2BE080, -2px -2px 6px #2BE080;
+  transition: .3s;
+}
