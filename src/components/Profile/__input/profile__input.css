@@ -1,0 +1,31 @@
+.profile__input {
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 11px;
+  color: black;
+
+  border: none;
+}
+
+.profile__input:focus {
+  outline: none;
+}
+
+.profile__input::-webkit-input-placeholder {
+  color: black;
+  text-align: end;
+}
+
+.profile__input::-moz-placeholder {
+  color: black;
+  text-align: end;
+}
+
+.profile__input::-ms-input-placeholder {
+  color: black;
+  text-align: end;
+}
+
+.profile__input::placeholder {
+  color: black;
+  text-align: end;
+} 

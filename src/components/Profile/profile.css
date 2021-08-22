@@ -1,0 +1,19 @@
+@import url(./__borderline/profile__borderline.css);
+@import url(./__edit-button/profile__edit-button.css);
+@import url(./__exit-button/profile__exit-button.css);
+@import url(./__fieldset/profile__fieldset.css);
+@import url(./__form/profile__form.css);
+@import url(./__input/profile__input.css);
+@import url(./__label/profile__label.css);
+@import url(./__title/profile__title.css);
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  box-sizing: border-box;
+
+  padding-top: 74px;
+}

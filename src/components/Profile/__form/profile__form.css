@@ -1,0 +1,12 @@
+.profile__form {
+  border: none;
+
+  margin-top: 123px;
+
+  width: 410px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

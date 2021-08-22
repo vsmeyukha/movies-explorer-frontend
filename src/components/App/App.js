@@ -5,6 +5,7 @@ import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
+import Profile from '../Profile/Profile';
 
 function App() {
   return (
@@ -20,31 +21,13 @@ function App() {
         <Route path="/saved-movies">
           <SavedMovies />
         </Route>
+        <Route path="/profile">
+          <Profile />
+        </Route>
       </Switch>
       <Footer />
     </div>
   )
 }
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//         KUS'!!!
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
 
 export default App;

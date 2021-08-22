@@ -1,0 +1,14 @@
+.profile__edit-button {
+  border: none;
+  background-color: white;
+
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 13px;
+
+  margin-top: 220px;
+  padding: 0;
+}
+
+.profile__edit-button:hover {
+  cursor: pointer;
+}

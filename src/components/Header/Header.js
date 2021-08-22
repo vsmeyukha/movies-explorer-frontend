@@ -9,7 +9,7 @@ function Header(props) {
 
   let isLoggedIn;
 
-  if (location.pathname === '/movies' || location.pathname === '/saved-movies') {
+  if (location.pathname === '/movies' || location.pathname === '/saved-movies' || location.pathname === '/profile') {
     isLoggedIn = true;
   }
 

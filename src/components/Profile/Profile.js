@@ -1,0 +1,24 @@
+import React from 'react';
+
+function Profile() {
+  return (
+    <section className="profile">
+      <h2 className="profile__title">Привет, Виктор!</h2>
+      <form className="profile__form">
+        <fieldset className="profile__fieldset">
+          <label htmlFor="user-name" className="profile__label">Имя</label>
+          <input type="text" className="profile__input" id="user-name" placeholder="Виктор"></input>
+        </fieldset>
+        <div className="profile__borderline"></div>
+        <fieldset className="profile__fieldset">
+          <label htmlFor="user-email" className="profile__label">Почта</label>
+          <input type="email" className="profile__input" id="user-email" placeholder="email@email.ru"></input>
+        </fieldset>
+        <button className="profile__edit-button" type="submit">Редактировать</button>
+      </form>
+      <button className="profile__exit-button">Выйти из аккаунта</button>
+    </section>
+  );
+};
+
+export default Profile;
