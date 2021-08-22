@@ -1,10 +1,14 @@
 import React from 'react';
-import MoviesCard from './MoviesCard/MoviesCard';
+import MoviesCardList from './MoviesCardList/MoviesCardList';
+import MoreFilmsButton from './MoreFilmsButton/MoreFilmsButton';
+import SearchForm from './SearchForm/SearchForm';
 
 function Movies() {
   return (
     <>
-      <MoviesCard />
+      <SearchForm />
+      <MoviesCardList />
+      <MoreFilmsButton />
     </>
   );
 };

@@ -1,0 +1,13 @@
+.search-form__input {
+  border: none;
+
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.29;
+
+  width: 100%;
+}
+
+.search-form__input:focus {
+  outline: none;
+}

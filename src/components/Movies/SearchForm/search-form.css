@@ -1,0 +1,17 @@
+@import url(./__fieldset/search-form__fieldset.css);
+@import url(./__fieldset/_active/search-form__fieldset_active.css);
+@import url(./__input/search-form__input.css);
+@import url(./__submit/search-form__submit.css);
+
+.search-form {
+  width: 100%;
+
+  margin-top: 80px;
+
+  display: flex;
+  justify-content: space-between;
+
+  box-sizing: border-box;
+
+  padding: 0 70px;
+}

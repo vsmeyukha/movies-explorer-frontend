@@ -1,0 +1,22 @@
+.more-films-button {
+  box-sizing: border-box;
+  width: 1140px;
+  height: 36px;
+  margin: 50px 0 0 0;
+  background-color: #F9F9F9;
+
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: normal;
+  font-size: 12px;
+
+  border: none;
+  border-radius: 6px;
+
+  transition: .2s;
+}
+
+.more-films-button:hover {
+  color: #2BE080;
+  box-shadow: 1px 1px 4px grey, -1px -1px 4px grey;
+  transition: .2s;
+}
