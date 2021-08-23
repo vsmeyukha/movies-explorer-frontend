@@ -32,6 +32,12 @@
   line-height: 1.66;
 }
 
+@media screen and (max-width: 500px) {
+  .link_portfolio {
+    font-size: 18px;
+  }
+}
+
 .link_portfolio-arrow {
   transform: rotate(315deg);
 }

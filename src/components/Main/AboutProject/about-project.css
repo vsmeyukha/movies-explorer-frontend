@@ -6,6 +6,7 @@
 @import url(./__scale-description/about-project__scale-description.css);
 @import url(./__scale-small-part/about-project__scale-small-part.css);
 @import url(./__scale-text/about-project__scale-text.css);
+@import url(./__small-description-container/about-project__small-description-container.css);
 
 .about-project {
   width: 100%;
@@ -14,4 +15,11 @@
 
   display: flex;
   flex-direction: column;
+}
+
+@media screen and (max-width: 500px) {
+  .about-project {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
 }

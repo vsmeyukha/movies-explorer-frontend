@@ -6,3 +6,9 @@
 
   margin-left: 60px;
 }
+
+@media screen and (max-width: 500px) {
+  .header__logo {
+    margin-left: 20px;
+  }
+}

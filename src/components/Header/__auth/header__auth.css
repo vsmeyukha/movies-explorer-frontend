@@ -4,3 +4,9 @@
 
   margin-right: 70px;
 }
+
+@media screen and (max-width: 500px) {
+  .header__auth {
+    margin-right: 20px;
+  }
+}

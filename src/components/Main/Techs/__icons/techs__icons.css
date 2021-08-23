@@ -4,3 +4,9 @@
   display: flex;
   justify-content: center;
 }
+
+@media screen and (max-width: 670px) {
+  .techs__icons {
+    flex-wrap: wrap;
+  }
+}

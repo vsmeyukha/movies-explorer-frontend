@@ -5,6 +5,7 @@
   background-color: #E8E8E8;
 
   margin-left: 10px;
+  margin-top: 10px;
 
   display: flex;
   justify-content: center;
@@ -12,11 +13,18 @@
   transition: .3s;
 }
 
-.techs__icon:first-child {
+/* .techs__icon:first-child {
   margin-left: 0;
-}
+} */
 
 .techs__icon:hover {
   background-color: #2BE080;
   transition: .3s;
+}
+
+@media screen and (max-width: 768px) {
+  .techs__icon {
+    width: 84px;
+    height: 57px;
+  }
 }

@@ -7,3 +7,9 @@
 
   margin: 0;
 }
+
+@media screen and (max-width: 500px) {
+  .about-project__scale-text {
+    font-size: 11px;
+  }
+}
