@@ -1,0 +1,9 @@
+.auth-form__text {
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+  color: #A0A0A0;
+
+  margin: 0;
+  padding: 0;
+}

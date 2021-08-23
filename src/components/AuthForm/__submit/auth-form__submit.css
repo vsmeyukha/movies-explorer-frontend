@@ -1,0 +1,14 @@
+.auth-form__submit {
+  background-color: #3456F3;
+  border-radius: 3px;
+  border: none;
+
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: normal;
+  color: white;
+  font-size: 14px;
+
+  margin-top: 176px;
+
+  height: 45px;
+}

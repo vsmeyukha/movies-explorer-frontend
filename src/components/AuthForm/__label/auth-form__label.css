@@ -1,0 +1,10 @@
+.auth-form__label {
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: normal;
+  font-size: 10px;
+  color: #A0A0A0;
+}
+
+.auth-form__label:last-of-type {
+  margin-top: 20px;
+}

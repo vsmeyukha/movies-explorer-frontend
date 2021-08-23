@@ -2,7 +2,7 @@ import React from 'react';
 import SearchForm from '../Movies/SearchForm/SearchForm';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
 
-function Movies() {
+function SavedMovies() {
   return (
     <>
       <SearchForm />
@@ -11,4 +11,4 @@ function Movies() {
   );
 };
 
-export default Movies;
+export default SavedMovies;

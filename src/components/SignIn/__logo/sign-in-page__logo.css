@@ -1,0 +1,6 @@
+.sign-in-page__logo {
+  width: 38px;
+  height: 38px;
+
+  background-image: url(../../../images/logo_logged-in.svg);
+}
