@@ -7,6 +7,12 @@ import HeaderLoggedIn from './HeaderLoggedIn';
 function Header(props) {
   const location = useLocation();
 
+  let isHeader;
+
+  if (location.pathname === '/' || location.pathname === '/movies' || location.pathname === '/saved-movies' || location.pathname === '/profile') {
+    isHeader = true;
+  }
+
   let isLoggedIn;
 
   if (location.pathname === '/movies' || location.pathname === '/saved-movies' || location.pathname === '/profile') {
@@ -21,21 +27,24 @@ function Header(props) {
     }
   };
 
-  return (
-    <header className={setHeaderSelector()}>
-      <Link to="/">
-        <div className={!isLoggedIn ? headerSelectors.logo : `${headerSelectors.logo} ${headerSelectors.logoLoggedIn}`}></div>
-      </Link>
-      {
-        !isLoggedIn
-          ?
-          <HeaderNotLoggedIn />
-          :
-          <HeaderLoggedIn />
-      }
+  if (isHeader) {
+    return (
+      <header className={setHeaderSelector()}>
+        <Link to="/">
+          <div className={!isLoggedIn ? headerSelectors.logo : `${headerSelectors.logo} ${headerSelectors.logoLoggedIn}`}></div>
+        </Link>
+        {
+          !isLoggedIn
+            ?
+            <HeaderNotLoggedIn />
+            :
+            <HeaderLoggedIn />
+        }
+  
+      </header>
+    )
+  } else return null;
 
-    </header>
-  )
 };
 
 export default Header;
