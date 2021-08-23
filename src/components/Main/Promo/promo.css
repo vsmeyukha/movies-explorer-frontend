@@ -3,13 +3,19 @@
 
 .promo {
   width: 100%;
+  box-sizing: border-box;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
+  background: center no-repeat;
+  background-image: url(../../../images/promo.svg);
   background-color: #073042;
 
-  position: relative;
+  /* background: center no-repeat url(../../../images/promo.svg); */
+
+  padding-top: 184px;
+  padding-bottom: 224px;
 }
