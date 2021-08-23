@@ -1,0 +1,12 @@
+@import url(./__back/page-not-found__back.css);
+@import url(./__text/page-not-found__text.css);
+@import url(./__title/page-not-found__title.css);
+
+.page-not-found {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

@@ -14,5 +14,7 @@
 
 @import url(./components/Footer/footer.css);
 
+@import url(./components/PageNotFound/page-not-found.css);
+
 @import url(./styles/styles.css);
 
