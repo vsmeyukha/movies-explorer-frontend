@@ -4,3 +4,9 @@
 @import url(./Preloader/Preloader.css);
 @import url(./SearchForm/search-form.css);
 @import url(./MoreFilmsButton/more-films-button.css);
+
+.movies {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

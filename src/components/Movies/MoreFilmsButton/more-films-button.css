@@ -20,3 +20,81 @@
   box-shadow: 1px 1px 4px grey, -1px -1px 4px grey;
   transition: .2s;
 }
+
+@media screen and (max-width: 1150px) {
+  .more-films-button {
+    width: 1000px;
+  }
+}
+
+@media screen and (max-width: 1050px) {
+  .more-films-button {
+    width: 900px;
+  }
+}
+
+@media screen and (max-width: 950px) {
+  .more-films-button {
+    width: 800px;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .more-films-button {
+    width: 700px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .more-films-button {
+    width: 708px;
+  }
+}
+
+@media screen and (max-width: 710px) {
+  .more-films-button {
+    width: 650px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .more-films-button {
+    width: 600px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .more-films-button {
+    width: 550px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .more-films-button {
+    width: 500px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .more-films-button {
+    width: 450px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .more-films-button {
+    width: 400px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .more-films-button {
+    width: 350px;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .more-films-button {
+    width: 300px;
+  }
+}
