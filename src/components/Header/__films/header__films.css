@@ -2,3 +2,10 @@
   display: flex;
   justify-content: space-between;
 }
+
+@media screen and (max-width: 768px) {
+  .header__films {
+    visibility: hidden;
+    opacity: 0;
+  }
+}

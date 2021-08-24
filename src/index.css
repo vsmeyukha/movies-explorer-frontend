@@ -18,6 +18,10 @@
 
 @import url(./components/SignIn/sign-in-page.css);
 
+@import url(./components/MenuPopup/menu-popup.css);
+
+@import url(./components/MenuPopup/_active/menu-popup_active.css);
+
 @import url(./components/PageNotFound/page-not-found.css);
 
 @import url(./styles/styles.css);

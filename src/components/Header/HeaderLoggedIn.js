@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 
-function HeaderLoggedIn() {
+function HeaderLoggedIn(props) {
   return (
     <div className="header__logged-in-navigation">
       <nav className="header__films">
@@ -14,6 +14,11 @@ function HeaderLoggedIn() {
           <div className="header__to-profile-button"></div>
         </Link>
       </div>
+      <button className="header__burger" onClick={props.onMenuClick}>
+        <div className="header__burger-stripe"></div>
+        <div className="header__burger-stripe"></div>
+        <div className="header__burger-stripe"></div>
+      </button>
     </div>
   );
 };

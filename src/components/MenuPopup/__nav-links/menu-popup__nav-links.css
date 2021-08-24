@@ -1,0 +1,7 @@
+.menu-popup__nav-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-top: 105px;
+}

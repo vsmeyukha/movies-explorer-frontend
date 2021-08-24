@@ -1,5 +1,11 @@
 .header__logged-in-navigation {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center; 
+}
+
+@media screen and (max-width: 768px) {
+  .header__logged-in-navigation {
+    align-items: flex-start;
+  }
 }

@@ -1,3 +1,4 @@
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import Header from '../Header/Header';
@@ -8,12 +9,23 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import SignIn from '../SignIn/SignIn';
 import Register from '../Register/Register';
 import Profile from '../Profile/Profile';
+import MenuPopup from '../MenuPopup/MenuPopup';
 import PageNotFound from '../PageNotFound/PageNotFound';
 
 function App() {
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
+  const handleMenuOpenClick = () => {
+    setIsMenuOpen(true);
+  }
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  }
+
   return (
     <div className="page">
-      <Header />
+      <Header onMenuClick={ handleMenuOpenClick }/>
       <Switch>
         <Route exact path="/">
           <Main />
@@ -38,6 +50,7 @@ function App() {
         </Route>
       </Switch>
       <Footer />
+      <MenuPopup isOpen={isMenuOpen} onClose={closeMenu}/>
     </div>
   )
 }

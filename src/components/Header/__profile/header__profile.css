@@ -5,3 +5,10 @@
 
   margin-left: 50px;
 }
+
+@media screen and (max-width: 768px) {
+  .header__profile {
+    visibility: hidden;
+    opacity: 0;
+  }
+}

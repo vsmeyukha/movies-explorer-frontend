@@ -4,3 +4,15 @@
   width: 396px;
   margin-top: 70px;
 }
+
+@media screen and (max-width: 450px) {
+  .sign-in-page {
+    width: 350px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .sign-in-page {
+    width: 300px;
+  }
+}

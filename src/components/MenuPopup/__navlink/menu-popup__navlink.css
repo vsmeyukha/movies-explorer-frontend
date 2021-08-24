@@ -1,0 +1,12 @@
+.menu-popup__navlink {
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 18px;
+  color: black;
+  text-decoration: none;
+
+  margin-top: 28px;
+}
+
+.menu-popup__navlink:first-child {
+  margin: 0;
+}

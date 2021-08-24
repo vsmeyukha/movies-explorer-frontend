@@ -1,0 +1,11 @@
+.menu-popup__close-button {
+  width: 22px;
+  height: 22px;
+
+  background-color: #fff;
+  background: center no-repeat url(../../../images/close-button.svg);
+
+  border: none;
+
+  margin-right: 22px;
+}

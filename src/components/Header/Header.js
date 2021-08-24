@@ -38,7 +38,7 @@ function Header(props) {
             ?
             <HeaderNotLoggedIn />
             :
-            <HeaderLoggedIn />
+            <HeaderLoggedIn onMenuClick={props.onMenuClick} />
         }
   
       </header>
