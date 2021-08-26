@@ -2,15 +2,19 @@
 @import url(./__heart/movies-card__heart.css);
 @import url(./__info/movies-card__info.css);
 @import url(./__like/movies-card__like.css);
+@import url(./__like-text/movies-card__like-text.css);
 @import url(./__photo/movies-card__photo.css);
 @import url(./__time/movies-card__time.css);
 @import url(./__title/movies-card__title.css);
 
 .movies-card {
-  width: 270px;
+  width: 360px;
 
   display: flex;
   flex-direction: column;
+
+  background-color: #222222;
+  border-radius: 6px;
 }
 
 @media screen and (max-width: 1279px) {

@@ -1,8 +1,9 @@
 .movies-card__title {
   font-family: 'Inter', Arial, sans-serif;
   font-weight: normal;
-  font-size: 13px;
-  color: black;
+  font-size: 15px;
+  line-height: 1.2;
+  color: white;
 
   margin: 0;
   padding: 0;

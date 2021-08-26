@@ -1,11 +1,11 @@
 import React from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList() {
+function MoviesCardList(props) {
   return (
     <section className="movies-card-list">
-      <MoviesCard />
-      <MoviesCard />
+      <MoviesCard saveFilm={props.saveFilm} isFilmSaved={props.isFilmSaved}/>
+      <MoviesCard saveFilm={props.saveFilm} isFilmSaved={props.isFilmSaved}/>
       <MoviesCard />
       <MoviesCard />
       <MoviesCard />

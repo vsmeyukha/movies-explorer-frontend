@@ -1,23 +1,29 @@
 .movies-card__like {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
+  width: 100px;
+  height: 29px;
+  border-radius: 30px;
   border: none;
 
-  background-color: #F5F5F5;
+  background-color: #313131;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  margin: 0;
+  margin: 18px 0;
   padding: 0;
 
   transition: .2s;
+
+  align-self: center;
 }
 
 .movies-card__like:hover {
   transform: scale(1.3, 1.3);
-  border: solid 1px red;
+  border: solid 1px #3DDC84;
   transition: .2s;
+}
+
+.movies-card__like_active {
+  background-color: #EE3465;
 }

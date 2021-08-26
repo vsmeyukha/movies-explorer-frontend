@@ -41,6 +41,13 @@ function App() {
     setDay(!day);
   }
 
+  // ? флажок, показывающий, сохранен ли фильм в нашу базу
+  const [isFilmSaved, setIsFilmSaved] = React.useState(false);
+
+  const saveFilm = () => {
+    setIsFilmSaved(true);
+  }
+
   return (
     <ThemeContext.Provider value={day} >
       <div className={`page ${!day && `page_black`}`}>
@@ -50,7 +57,7 @@ function App() {
             <Main />
           </Route>
           <Route path="/movies">
-            <Movies />
+            <Movies saveFilm={saveFilm} isFilmSaved={isFilmSaved} />
           </Route>
           <Route path="/saved-movies">
             <SavedMovies />
