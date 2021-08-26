@@ -1,10 +1,10 @@
 import React from 'react';
 
-function FilterCheckBox() {
+function FilterCheckBox(props) {
   return (
       <fieldset className="filter-checkbox">
-        <label htmlFor="short-film" className="filter-checkbox__label">Короткометражки</label>
-        <input type="checkbox" id="short-film" className="filter-checkbox__input"></input>
+        <label htmlFor="short-film" className="filter-checkbox__label">{props.checkboxName}</label>
+      <input type="checkbox" id="short-film" className="filter-checkbox__input" onClick={props.clickFunction}></input>
       </fieldset>
 
   );

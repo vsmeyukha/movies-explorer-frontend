@@ -24,7 +24,7 @@ function SearchForm() {
             <input type="text" placeholder="Фильм" required min="2" max="30" name="film" className="search-form__input" onClick={enableFieldset} onMouseOut={disableFieldset}></input>
           <button type="submit" className="search-form__submit"></button>
           </fieldset>
-          <FilterCheckBox />
+          <FilterCheckBox checkboxName="Короткометражки"/>
         </form>
         
     </>

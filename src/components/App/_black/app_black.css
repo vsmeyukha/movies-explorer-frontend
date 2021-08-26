@@ -1,0 +1,6 @@
+.page_black {
+  background-color: #202020;
+  color: white;
+
+  transition: .5s;
+}

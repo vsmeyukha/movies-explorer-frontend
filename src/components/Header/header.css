@@ -1,4 +1,5 @@
 @import url(./__auth/header__auth.css);
+@import url(./__auth-and-theme/header__auth-and-theme.css);
 @import url(./__burger/header__burger.css);
 @import url(./__burger-stripe/header__burger-stripe.css);
 @import url(./__films/header__films.css);

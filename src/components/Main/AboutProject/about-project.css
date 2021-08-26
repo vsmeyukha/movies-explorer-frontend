@@ -2,10 +2,13 @@
 @import url(./__description-title/about-project__description-title.css);
 @import url(./__description/about-project__description.css);
 @import url(./__scale-big-part/about-project__scale-big-part.css);
+@import url(./__scale-big-part/_black/about-project__scale-big-part_black.css);
 @import url(./__scale-container/about-project__scale-container.css);
 @import url(./__scale-description/about-project__scale-description.css);
+@import url(./__scale-description/_black/about-project__scale-description_black.css);
 @import url(./__scale-small-part/about-project__scale-small-part.css);
 @import url(./__scale-text/about-project__scale-text.css);
+@import url(./__scale-text/_black/about-project__scale-text_black.css);
 @import url(./__small-description-container/about-project__small-description-container.css);
 
 .about-project {
