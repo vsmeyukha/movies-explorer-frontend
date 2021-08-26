@@ -6,8 +6,15 @@
   margin-left: 50px;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
+  .header__auth {
+    margin-top: 15px;
+    margin-right: 0;
+  }
+}
+
+/* @media screen and (max-width: 500px) {
   .header__auth {
     margin-right: 20px;
   }
-}
+} */

@@ -22,3 +22,15 @@
   justify-content: space-between;
   align-items: center;
 }
+
+@media screen and (max-width: 600px) {
+  .header {
+    height: 100px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .header {
+    height: 120px;
+  }
+}
