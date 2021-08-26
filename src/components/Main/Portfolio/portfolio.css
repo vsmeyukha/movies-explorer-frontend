@@ -1,9 +1,11 @@
 @import url(./__borderline/portfolio__borderline.css);
+@import url(./__borderline/_black/portfolio__borderline_black.css);
 @import url(./__paragraph/portfolio__paragraph.css);
 @import url(./__links/portfolio__links.css);
 @import url(./__link-arrow/portfolio__link-arrow.css);
 @import url(./__link/portfolio__link.css);
 @import url(./__title/portfolio__title.css);
+@import url(./__title/_black/portfolio__title_black.css);
 @import url(./__link-container/portfolio__link-container.css);
 
 .portfolio {
