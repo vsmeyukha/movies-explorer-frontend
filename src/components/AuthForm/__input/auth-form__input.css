@@ -8,7 +8,30 @@
   font-size: 13px;
 
   margin-top: 10px;
-  padding: 0;
+  padding: 0 0 0 15px;
 
   height: 46px;
+}
+
+.auth-form__input_black {
+  background-color: #2F2F2F;
+}
+
+.auth-form__input_black::placeholder {
+  color: white;
+}
+
+.auth-form__input_black::-webkit-input-placeholder {
+  color: black;
+  text-align: end;
+}
+
+.auth-form__input_black::-moz-placeholder {
+  color: black;
+  text-align: end;
+}
+
+.auth-form__input_black::-ms-input-placeholder {
+  color: black;
+  text-align: end;
 }

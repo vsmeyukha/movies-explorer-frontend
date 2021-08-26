@@ -14,3 +14,7 @@
 .profile__exit-button:hover {
   cursor: pointer;
 }
+
+.profile__exit-button_black {
+  background-color: #202020;
+}

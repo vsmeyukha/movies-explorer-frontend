@@ -4,6 +4,8 @@
   color: black;
 
   border: none;
+
+  background-color: #202020;
 }
 
 .profile__input:focus {
@@ -28,4 +30,20 @@
 .profile__input::placeholder {
   color: black;
   text-align: end;
+}
+
+.profile__input_black::-webkit-input-placeholder {
+  color: white;
+}
+
+.profile__input_black::-moz-placeholder {
+  color: white;
+}
+
+.profile__input_black::-ms-input-placeholder {
+  color: white;
+}
+
+.profile__input_black::placeholder {
+  color: white;
 } 

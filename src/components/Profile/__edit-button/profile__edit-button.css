@@ -18,3 +18,8 @@
     margin-top: 120px;
   }
 }
+
+.profile__edit-button_black {
+  background-color: #202020;
+  color: white;
+}
