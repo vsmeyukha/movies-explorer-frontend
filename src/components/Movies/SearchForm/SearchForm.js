@@ -19,13 +19,14 @@ function SearchForm() {
 
   return (
     <>
-        <form className="search-form">
-          <fieldset className={!fieldset ? fieldsetSelectors.passive : `${fieldsetSelectors.passive} ${fieldsetSelectors.active}`}>
-            <input type="text" placeholder="Фильм" required min="2" max="30" name="film" className="search-form__input" onClick={enableFieldset} onMouseOut={disableFieldset}></input>
+      <form className="search-form">
+        <fieldset className={!fieldset ? fieldsetSelectors.passive : `${fieldsetSelectors.passive} ${fieldsetSelectors.active}`}>
+          <input type="text" placeholder="Фильм" required min="2" max="30" name="film" className="search-form__input" onClick={enableFieldset} onMouseOut={disableFieldset}></input>
           <button type="submit" className="search-form__submit"></button>
-          </fieldset>
-          <FilterCheckBox checkboxName="Короткометражки"/>
-        </form>
+        </fieldset>
+        <div className="search-form__borderline"></div>
+        <FilterCheckBox checkboxName="Короткометражки"/>
+      </form>
         
     </>
 

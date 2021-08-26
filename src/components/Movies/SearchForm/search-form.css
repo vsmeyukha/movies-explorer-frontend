@@ -1,3 +1,4 @@
+@import url(./__borderline/search-form__borderline.css);
 @import url(./__fieldset/search-form__fieldset.css);
 @import url(./__fieldset/_active/search-form__fieldset_active.css);
 @import url(./__input/search-form__input.css);
@@ -5,15 +6,22 @@
 
 .search-form {
   width: 100%;
+  max-width: 1140px;
+
+  height: 70px;
 
   margin-top: 80px;
 
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   box-sizing: border-box;
 
-  padding: 0 70px;
+  padding: 0 30px 0 0;
+
+  background-color: #2F2F2F;
+  border-radius: 9px;
 }
 
 @media screen and (max-width: 700px) {

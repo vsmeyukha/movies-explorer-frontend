@@ -1,6 +1,8 @@
 .search-form__input {
   border: none;
 
+  background-color: #2F2F2F;
+
   font-family: 'Inter', Arial, sans-serif;
   font-size: 14px;
   line-height: 1.29;
