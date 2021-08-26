@@ -2,6 +2,7 @@
 @import url(./NavTab/nav-tab.css);
 @import url(./AboutProject/about-project.css);
 @import url(./Techs/techs.css);
+@import url(./Techs/_black/techs_black.css);
 @import url(./AboutMe/about-me.css);
 @import url(./Portfolio/portfolio.css);
 
