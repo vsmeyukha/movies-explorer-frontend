@@ -3,6 +3,7 @@ import { useLocation, Link } from 'react-router-dom';
 import { headerSelectors } from '../../utils/consts';
 import HeaderNotLoggedIn from './HeaderNotLoggedIn';
 import HeaderLoggedIn from './HeaderLoggedIn';
+import ThemeContext from '../../contexts/ThemeContext';
 
 function Header(props) {
   const location = useLocation();
@@ -19,11 +20,15 @@ function Header(props) {
     isLoggedIn = true;
   }
 
+  const day = React.useContext(ThemeContext);
+
   const setHeaderSelector = () => {
     if (location.pathname === '/') {
       return `${headerSelectors.header}`;
+    } if (!day) {
+      return `${headerSelectors.header} ${headerSelectors.headerFilms} ${headerSelectors.headerBlack}`;
     } else {
-      return `${headerSelectors.header} ${headerSelectors.headerFilms}`
+      return `${headerSelectors.header} ${headerSelectors.headerFilms}`;
     }
   };
 

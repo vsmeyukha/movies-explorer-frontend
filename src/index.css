@@ -6,6 +6,8 @@
 
 @import url(./components/Header/_logged-in/header_logged-in.css);
 
+@import url(./components/Header/_black/header_black.css);
+
 @import url(./components/Main/main.css);
 
 @import url(./components/Movies/movies.css);

@@ -1,6 +1,7 @@
 const headerSelectors = {
   header: "header",
   headerFilms: "header_logged-in",
+  headerBlack: 'header_black',
   logo: "header__logo",
   logoLoggedIn: 'header__logo_logged-in',
   logoFilms: "header__logo_logged-in",
