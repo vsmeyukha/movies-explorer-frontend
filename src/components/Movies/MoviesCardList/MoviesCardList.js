@@ -6,27 +6,11 @@ function MoviesCardList(props) {
     <section className="movies-card-list">
       <MoviesCard saveFilm={props.saveFilm} isFilmSaved={props.isFilmSaved}/>
       <MoviesCard saveFilm={props.saveFilm} isFilmSaved={props.isFilmSaved}/>
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
+      <MoviesCard saveFilm={props.saveFilm} isFilmSaved={props.isFilmSaved}/>
+      <MoviesCard saveFilm={props.saveFilm} isFilmSaved={props.isFilmSaved}/>
+      <MoviesCard saveFilm={props.saveFilm} isFilmSaved={props.isFilmSaved}/>
+      <MoviesCard saveFilm={props.saveFilm} isFilmSaved={props.isFilmSaved}/>
+      <MoviesCard saveFilm={props.saveFilm} isFilmSaved={props.isFilmSaved}/>
     </section>
   );
 };

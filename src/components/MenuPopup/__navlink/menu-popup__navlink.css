@@ -10,3 +10,7 @@
 .menu-popup__navlink:first-child {
   margin: 0;
 }
+
+.menu-popup__navlink_black {
+  color: white;
+}

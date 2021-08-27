@@ -15,23 +15,28 @@
 
 .auth-form__input_black {
   background-color: #2F2F2F;
-}
-
-.auth-form__input_black::placeholder {
   color: white;
 }
 
+.auth-form__input_black::placeholder {
+  color: #8B8B8B;
+  margin-right: 10px;
+}
+
 .auth-form__input_black::-webkit-input-placeholder {
-  color: black;
+  color: #8B8B8B;
   text-align: end;
+  margin-right: 10px;
 }
 
 .auth-form__input_black::-moz-placeholder {
-  color: black;
+  color: #8B8B8B;
   text-align: end;
+  margin-right: 10px;
 }
 
 .auth-form__input_black::-ms-input-placeholder {
-  color: black;
+  color: #8B8B8B;
   text-align: end;
+  margin-right: 10px;
 }

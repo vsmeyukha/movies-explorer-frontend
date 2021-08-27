@@ -7,6 +7,8 @@
   border: none;
 
   transition: .3s;
+
+  margin-top: 20px;
 }
 
 .search-form__submit:hover{

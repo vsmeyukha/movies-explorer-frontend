@@ -1,17 +1,17 @@
 import React from 'react';
+import imgPath from '../../../images/saved-film-pic.jpg';
 
-function MoviesCard() {
+function MoviesCard(props) {
   return (
     <div className="movies-card">
-      <div className="movies-card__photo"></div>
       <div className="movies-card__info">
-        <p className="movies-card__title">Zona</p>
-        <button className="movies-card__like">
-          <div className="movies-card__heart"></div>
-        </button>
+        <p className="movies-card__title">Kill Bill</p>
+        <p className="movies-card__time">1 hour 42 minutes</p>
       </div>
-      <div className="movies-card__borderline"></div>
-      <p className="movies-card__time">1 hour 55 minutes</p>
+      <img src={imgPath} className="movies-card__photo" alt="Some film"></img>
+      <button className="movies-card__like" onClick={props.saveFilm}>
+        <p className="movies-card__like-text movies-card__like-text_saved">x</p>
+      </button>
     </div>
   );
 };

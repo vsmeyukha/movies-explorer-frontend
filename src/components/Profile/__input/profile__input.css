@@ -47,3 +47,7 @@
 .profile__input_black::placeholder {
   color: white;
 } 
+
+.profile__input_black {
+  color: white;
+}

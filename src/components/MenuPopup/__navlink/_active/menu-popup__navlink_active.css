@@ -1,3 +1,7 @@
 .menu-popup__navlink_active {
   text-decoration: underline black 2px;
 }
+
+.menu-popup__navlink_active_black {
+  text-decoration: underline white 2px;
+}

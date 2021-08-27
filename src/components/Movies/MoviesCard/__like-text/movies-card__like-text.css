@@ -5,3 +5,7 @@
   line-height: 0.92;
   color: white;
 }
+
+.movies-card__like-text_saved {
+  font-weight: 800;
+}

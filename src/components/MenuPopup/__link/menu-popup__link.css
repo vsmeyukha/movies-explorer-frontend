@@ -5,3 +5,7 @@
   color: black;
   text-decoration: none;
 }
+
+.menu-popup__link_black {
+  color: white;
+}

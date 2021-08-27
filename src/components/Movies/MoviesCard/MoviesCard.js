@@ -1,4 +1,5 @@
 import React from 'react';
+import imgPath from '../../../images/moviesCard.jpg';
 
 // function MoviesCard() {
 //   return (
@@ -25,7 +26,7 @@ function MoviesCard(props) {
         <p className="movies-card__title">Kill Bill</p>
         <p className="movies-card__time">1 hour 42 minutes</p>
       </div>
-      <div className="movies-card__photo"></div>
+      <img src={imgPath} className="movies-card__photo" alt="Kill Bill"></img>
       <button className={likeClassName} onClick={props.saveFilm}>
         {!props.isFilmSaved
           ?

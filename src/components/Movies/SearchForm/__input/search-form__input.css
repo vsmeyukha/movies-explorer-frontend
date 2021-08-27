@@ -8,6 +8,8 @@
   line-height: 1.29;
 
   width: 100%;
+
+  margin-top: 20px;
 }
 
 .search-form__input:focus {

@@ -1,6 +1,6 @@
 .header__burger-stripe {
   width: 100%;
-  border-bottom: 3px solid #000;
+  border-bottom: 3px solid #fff;
 
   visibility: hidden;
   opacity: 0;
@@ -16,5 +16,11 @@
   .header__burger-stripe {
     visibility: visible;
     opacity: 1;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .header__burger-stripe {
+    margin-top: 6px;
   }
 }

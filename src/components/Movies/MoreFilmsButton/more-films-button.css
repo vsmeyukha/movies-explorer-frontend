@@ -1,24 +1,27 @@
 .more-films-button {
   box-sizing: border-box;
-  width: 1140px;
+  width: 320px;
   height: 36px;
   margin: 50px 0 0 0;
-  background-color: #F9F9F9;
+  background-color: #202020;
 
   font-family: 'Inter', Arial, sans-serif;
-  font-weight: normal;
+  font-weight: normal; 
   font-size: 12px;
 
-  border: none;
+  border: solid 2px #424242;
   border-radius: 6px;
 
   transition: .2s;
+
+  color: white;
 }
 
 .more-films-button:hover {
   color: #2BE080;
-  box-shadow: 1px 1px 4px grey, -1px -1px 4px grey;
+  box-shadow: 3px 3px 15px #2BE080, -3px -3px 15px #2BE080;
   transition: .2s;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 1150px) {

@@ -11,8 +11,13 @@
   align-items: center;
 }
 
+.filter-checkbox_films {
+  margin: 0 30px;
+}
+
 @media screen and (max-width: 550px) {
   .filter-checkbox {
     margin-top: 45px;
+    flex-direction: row-reverse;
   }
 }
