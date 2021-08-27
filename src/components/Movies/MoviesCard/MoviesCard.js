@@ -23,10 +23,10 @@ function MoviesCard(props) {
   return (
     <div className="movies-card">
       <div className="movies-card__info">
-        <p className="movies-card__title">Kill Bill</p>
-        <p className="movies-card__time">1 hour 42 minutes</p>
+        <p className="movies-card__title">{props.title}</p>
+        <p className="movies-card__time">{props.time}</p>
       </div>
-      <img src={imgPath} className="movies-card__photo" alt="Kill Bill"></img>
+      <img src={props.imgSrc} className="movies-card__photo" alt="Kill Bill"></img>
       <button className={likeClassName} onClick={props.saveFilm}>
         {!props.isFilmSaved
           ?

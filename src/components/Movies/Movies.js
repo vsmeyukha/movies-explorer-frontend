@@ -6,8 +6,12 @@ import SearchForm from './SearchForm/SearchForm';
 function Movies(props) {
   return (
     <>
-      <SearchForm />
-      <MoviesCardList saveFilm={props.saveFilm} isFilmSaved={props.isFilmSaved} />
+      <SearchForm onSubmit={props.getMoviesList} />
+      <MoviesCardList
+        saveFilm={props.saveFilm}
+        isFilmSaved={props.isFilmSaved}
+        moviesList={props.moviesList}
+      />
       <MoreFilmsButton />
     </>
   );

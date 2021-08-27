@@ -19,7 +19,22 @@ import PageNotFound from '../PageNotFound/PageNotFound';
 // ? импортируем контекст
 import ThemeContext from '../../contexts/ThemeContext';
 
+// ? импортируем API
+import * as moviesApi from '../../utils/MoviesApi';
+
 function App() {
+
+  // ? реализация загрузки фильмов из общей базы
+  const [moviesList, setMoviesList] = React.useState([]);
+
+  const getMoviesList = () => {
+    moviesApi.getMovies()
+    .then((movies) => {
+      setMoviesList(movies);
+    });
+  }
+
+  // getMoviesList();
 
   // ? реализация работы всплывающего меню-бургера на малых разрешениях
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -57,7 +72,12 @@ function App() {
             <Main />
           </Route>
           <Route path="/movies">
-            <Movies saveFilm={saveFilm} isFilmSaved={isFilmSaved} />
+            <Movies
+              saveFilm={saveFilm}
+              isFilmSaved={isFilmSaved}
+              moviesList={moviesList}
+              getMoviesList={getMoviesList}
+            />
           </Route>
           <Route path="/saved-movies">
             <SavedMovies />

@@ -9,4 +9,6 @@ const headerSelectors = {
   button: "header__button",
 }
 
-export { headerSelectors };
+const BASE_URL = 'https://api.nomoreparties.co';
+
+export { headerSelectors, BASE_URL };
