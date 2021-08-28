@@ -7,8 +7,12 @@
   border: none;
 
   transition: .3s;
+}
 
-  margin-top: 20px;
+@media screen and (max-width: 550px) {
+  .search-form__submit {
+    margin-top: 20px;
+  }
 }
 
 .search-form__submit:hover{

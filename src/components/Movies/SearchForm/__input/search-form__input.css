@@ -8,8 +8,12 @@
   line-height: 1.29;
 
   width: 100%;
+}
 
-  margin-top: 20px;
+@media screen and (max-width: 550px) {
+  .search-form__input {
+    margin-top: 20px;
+  }
 }
 
 .search-form__input:focus {

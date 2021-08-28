@@ -24,9 +24,9 @@ function MoviesCard(props) {
     <div className="movies-card">
       <div className="movies-card__info">
         <p className="movies-card__title">{props.title}</p>
-        <p className="movies-card__time">{props.time}</p>
+        <p className="movies-card__time">{props.time} мин</p>
       </div>
-      <img src={props.imgSrc} className="movies-card__photo" alt="Kill Bill"></img>
+      <img src={props.imgSrc} className="movies-card__photo" alt={props.title}></img>
       <button className={likeClassName} onClick={props.saveFilm}>
         {!props.isFilmSaved
           ?
