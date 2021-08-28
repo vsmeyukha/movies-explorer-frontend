@@ -27,14 +27,22 @@ function App() {
   // ? реализация загрузки фильмов из общей базы
   const [moviesList, setMoviesList] = React.useState([]);
 
-  const getMoviesList = () => {
-    moviesApi.getMovies()
-    .then((movies) => {
+  // const getMoviesList = () => {
+  //   moviesApi.getMovies()
+  //   .then((movies) => {
+  //     setMoviesList(movies);
+  //   });
+  // }
+
+  const getMoviesList = async () => {
+    try {
+      const movies = await moviesApi.getMovies();
       setMoviesList(movies);
-    });
+    } catch (e) {
+      console.log(e);
+    }
   }
 
-  // getMoviesList();
 
   // ? реализация работы всплывающего меню-бургера на малых разрешениях
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -50,7 +58,7 @@ function App() {
   // ? контекст цветовой темы
   const [day, setDay] = React.useState(false);
 
-  console.log(day);
+  // console.log(day);
 
   const changeTheme = () => {
     setDay(!day);
