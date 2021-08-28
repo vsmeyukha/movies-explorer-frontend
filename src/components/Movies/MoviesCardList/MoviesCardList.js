@@ -12,6 +12,8 @@ function MoviesCardList(props) {
             title={movie.nameRU}
             time={movie.duration}
             imgSrc={`${BASE_URL}${movie.image.url}`}
+            saveFilm={props.saveFilm}
+            isFilmSaved={props.isFilmSaved}
           />
         )
       })}

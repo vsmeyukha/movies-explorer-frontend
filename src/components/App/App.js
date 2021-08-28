@@ -58,8 +58,6 @@ function App() {
   // ? контекст цветовой темы
   const [day, setDay] = React.useState(false);
 
-  // console.log(day);
-
   const changeTheme = () => {
     setDay(!day);
   }
@@ -68,7 +66,7 @@ function App() {
   const [isFilmSaved, setIsFilmSaved] = React.useState(false);
 
   const saveFilm = () => {
-    setIsFilmSaved(true);
+    setIsFilmSaved(!isFilmSaved);
   }
 
   return (
