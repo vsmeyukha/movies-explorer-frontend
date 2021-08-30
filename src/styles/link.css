@@ -1,0 +1,53 @@
+.link {
+  font-family: 'Inter', Arial, sans-serif;
+  color: white;
+  
+  transition: .3s;
+}
+
+.link:hover {
+  color: #2BE080;
+  transition: .3s;
+}
+
+.link_header {
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.link_nav-tab {
+  font-size: 13px;
+}
+
+.link_about-me {
+  color: black;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.link_portfolio {
+  color: black;
+  text-decoration: none;
+  font-size: 30px;
+  line-height: 1.66;
+}
+
+@media screen and (max-width: 500px) {
+  .link_portfolio {
+    font-size: 18px;
+  }
+}
+
+.link_portfolio-arrow {
+  transform: rotate(315deg);
+}
+
+.link_footer {
+  font-size: 13px;
+  color: black;
+  text-decoration: none;
+}
+
+.link_white {
+  color: white;
+}

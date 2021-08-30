@@ -1,0 +1,24 @@
+.profile__form {
+  border: none;
+
+  margin-top: 123px;
+
+  width: 410px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 500px) {
+  .profile__form {
+    width: 350px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .profile__form {
+    width: 300px;
+  }
+}

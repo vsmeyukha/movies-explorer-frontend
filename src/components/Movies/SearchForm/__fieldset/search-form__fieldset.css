@@ -1,0 +1,22 @@
+.search-form__fieldset {
+  border: none;
+  border-radius: 9px;;
+
+  width: 100%;
+  height: 48px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin: 0;
+  padding: 0 30px;
+}
+
+@media screen and (max-width: 550px) {
+  .search-form__fieldset {
+    background-color: #2F2F2F;
+    height: 72px;
+    width: calc(100% - 20px);
+  }
+}

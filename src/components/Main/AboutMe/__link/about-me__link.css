@@ -1,0 +1,7 @@
+.about-me__link {
+  margin-left: 20px;
+}
+
+.about-me__link:first-child {
+  margin: 0;
+}

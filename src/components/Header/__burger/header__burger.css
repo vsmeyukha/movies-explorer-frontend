@@ -1,0 +1,19 @@
+.header__burger {
+  width: 28px;
+
+  border: none;
+  background-color: #202020;
+
+  padding: 0;
+  margin: 0;
+
+  visibility: hidden;
+  opacity: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .header__burger {
+    visibility: visible;
+    opacity: 1;
+  }
+}

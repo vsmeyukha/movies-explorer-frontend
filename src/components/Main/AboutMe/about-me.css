@@ -1,0 +1,26 @@
+@import url(./__description/about-me__description.css);
+@import url(./__info/about-me__info.css);
+@import url(./__link/about-me__link.css);
+@import url(./__links/about-me__links.css);
+@import url(./__name/about-me__name.css);
+@import url(./__profile/about-me__profile.css);
+@import url(./__regalia/about-me__regalia.css);
+@import url(./__photo/about-me__photo.css);
+
+.about-me {
+  box-sizing: border-box;
+  padding: 110px 70px 0 70px;
+}
+
+@media screen and (mqx-width: 768px) {
+  .about-me {
+    padding: 110px 50px 0 50px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .about-me {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}

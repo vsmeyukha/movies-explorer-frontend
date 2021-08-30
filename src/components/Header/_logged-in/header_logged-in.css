@@ -1,0 +1,41 @@
+.header_logged-in {
+  background-color: white;
+  box-sizing: border-box;
+  padding: 0 70px;
+}
+
+@media screen and (max-width: 768px) {
+  .header_logged-in {
+    padding: 0 50px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .header_logged-in {
+    padding: 0 40px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .header_logged-in {
+    padding: 0 30px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .header_logged-in {
+    padding: 0 20px;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .header_logged-in {
+    padding: 0 10px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .header_logged-in {
+    padding: 0;
+  }
+}

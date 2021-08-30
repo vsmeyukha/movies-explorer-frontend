@@ -1,0 +1,9 @@
+.footer__info {
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
+
+  margin-top: 20px;
+  margin-bottom: 20px;
+}

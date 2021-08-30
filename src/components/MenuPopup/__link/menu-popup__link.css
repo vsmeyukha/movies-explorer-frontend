@@ -1,0 +1,11 @@
+.menu-popup__link {
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.14;
+  color: black;
+  text-decoration: none;
+}
+
+.menu-popup__link_black {
+  color: white;
+}

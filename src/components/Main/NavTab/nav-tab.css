@@ -1,0 +1,11 @@
+@import url(./__list/nav-tab__list.css);
+@import url(./__link/nav-tab__link.css);
+
+.nav-tab {
+  width: 100%;
+
+  background-color: black;
+
+  display: flex;
+  justify-content: center;
+}

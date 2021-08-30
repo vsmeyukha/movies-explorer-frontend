@@ -1,0 +1,28 @@
+@import url(./__all-links/menu-popup__all-links.css);
+@import url(./__close-button/menu-popup__close-button.css);
+@import url(./__link/menu-popup__link.css);
+@import url(./__nav-links/menu-popup__nav-links.css);
+@import url(./__nav/menu-popup__nav.css);
+@import url(./__navlink/menu-popup__navlink.css);
+@import url(./__profile/menu-popup__profile.css);
+@import url(./__to-profile-button/menu-popup__to-profile-button.css);
+@import url(./__navlink/_active/menu-popup__navlink_active.css);
+
+.menu-popup {
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, .5);
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  visibility: hidden;
+  opacity: 0;
+  transition: .2s ease-in;
+
+  z-index: 1000;
+
+  display: flex;
+  flex-direction: row-reverse;
+}

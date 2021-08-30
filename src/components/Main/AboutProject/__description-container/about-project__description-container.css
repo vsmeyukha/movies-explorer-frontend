@@ -1,0 +1,14 @@
+.about-project__description-container {
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 70px;
+}
+
+@media screen and (max-width: 500px) {
+  .about-project__description-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}

@@ -1,0 +1,21 @@
+@import url(./__logo/sign-in-page__logo.css);
+
+.sign-in-page {
+  width: 396px;
+  margin-top: 70px;
+}
+
+@media screen and (max-width: 450px) {
+  .sign-in-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 350px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .sign-in-page {
+    width: 300px;
+  }
+}

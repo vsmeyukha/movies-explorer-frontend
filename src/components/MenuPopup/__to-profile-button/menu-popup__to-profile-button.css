@@ -1,0 +1,10 @@
+.menu-popup__to-profile-button {
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  
+  background: center no-repeat url(../../../images/profile.svg);
+  background-color: #F5F5F5;
+
+  margin-left: 13px;
+}

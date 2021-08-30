@@ -1,0 +1,22 @@
+.search-form__submit {
+  height: 34px;
+  width: 34px;
+  border-radius: 50%;
+  background: center no-repeat url(../../../../images/loupe.svg);
+  background-color: #3456F3;
+  border: none;
+
+  transition: .3s;
+}
+
+@media screen and (max-width: 550px) {
+  .search-form__submit {
+    margin-top: 20px;
+  }
+}
+
+.search-form__submit:hover{
+  transform: scale(1.2, 1.2);
+  background-color: #2BE080;
+  transition: .3s;
+}

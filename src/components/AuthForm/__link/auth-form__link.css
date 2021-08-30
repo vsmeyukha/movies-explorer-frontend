@@ -1,0 +1,16 @@
+.auth-form__link {
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+  color: #3456F3;
+  text-decoration: none;
+
+  margin-left: 6px;
+
+
+}
+
+.auth-form__link:hover {
+  font-weight: bold;
+  transition: .3s;
+}

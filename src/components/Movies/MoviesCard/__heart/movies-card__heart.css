@@ -1,0 +1,10 @@
+.movies-card__heart {
+  width: 8px;
+  height: 8px;
+
+  background: center no-repeat;
+  background-image: url(../../../../images/tick.svg);
+
+  margin: 0;
+  padding: 0;
+}

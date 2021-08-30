@@ -1,0 +1,20 @@
+.profile__exit-button {
+  border: none;
+  background-color: white;
+
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  color: #FF004D;
+
+  margin-top: 16px;
+  padding: 0;
+}
+
+.profile__exit-button:hover {
+  cursor: pointer;
+}
+
+.profile__exit-button_black {
+  background-color: #202020;
+}

@@ -1,0 +1,22 @@
+.search-form__input {
+  border: none;
+
+  background-color: #2F2F2F;
+
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.29;
+  color: white;
+
+  width: 100%;
+}
+
+@media screen and (max-width: 550px) {
+  .search-form__input {
+    margin-top: 20px;
+  }
+}
+
+.search-form__input:focus {
+  outline: none;
+}

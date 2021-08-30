@@ -1,0 +1,39 @@
+.auth-form__input {
+  background-color: #F9F9F9;
+  border: none;
+  border-radius: 8px;
+
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: normal;
+  font-size: 13px;
+
+  margin-top: 10px;
+  padding: 0 0 0 15px;
+
+  height: 46px;
+}
+
+.auth-form__input_black {
+  background-color: #2F2F2F;
+  color: white;
+}
+
+.auth-form__input_black::placeholder {
+  color: #8B8B8B;
+  margin-right: 10px;
+}
+
+.auth-form__input_black::-webkit-input-placeholder {
+  color: #8B8B8B;
+  margin-right: 10px;
+}
+
+.auth-form__input_black::-moz-placeholder {
+  color: #8B8B8B;
+  margin-right: 10px;
+}
+
+.auth-form__input_black::-ms-input-placeholder {
+  color: #8B8B8B;
+  margin-right: 10px;
+}

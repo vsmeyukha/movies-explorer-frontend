@@ -1,0 +1,12 @@
+.auth-form__label {
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: normal;
+  font-size: 10px;
+  color: #A0A0A0;
+
+  margin-top: 20px;
+}
+
+.auth-form__label:first-child {
+  margin-top: 20px;
+}

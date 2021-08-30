@@ -1,0 +1,17 @@
+@import url(./__fieldset/auth-form__fieldset.css);
+@import url(./__input/auth-form__input.css);
+@import url(./__label/auth-form__label.css);
+@import url(./__link-container/auth-form__link-container.css);
+@import url(./__link/auth-form__link.css);
+@import url(./__submit/auth-form__submit.css);
+@import url(./__text/auth-form__text.css);
+@import url(./__title/auth-form__title.css);
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+
+  margin-top: 40px;
+}

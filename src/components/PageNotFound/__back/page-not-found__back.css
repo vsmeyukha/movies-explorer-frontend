@@ -1,0 +1,17 @@
+.page-not-found__back {
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  color: #4285F4;
+
+  border: none;
+  background-color: #fff;
+
+  margin-top: 184px;
+
+  cursor: pointer;
+}
+
+.page-not-found__back_black {
+  background-color: #202020;
+}

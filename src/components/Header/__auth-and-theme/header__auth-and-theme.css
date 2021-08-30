@@ -1,0 +1,15 @@
+.header__auth-and-theme {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media screen and (max-width: 600px) {
+  .header__auth-and-theme {
+    flex-direction: column;
+    align-items: flex-end;
+
+    padding-right: 15px;
+  }
+}

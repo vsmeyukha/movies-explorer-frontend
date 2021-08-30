@@ -1,0 +1,15 @@
+@import url(./Promo/promo.css);
+@import url(./NavTab/nav-tab.css);
+@import url(./AboutProject/about-project.css);
+@import url(./Techs/techs.css);
+@import url(./Techs/_black/techs_black.css);
+@import url(./AboutMe/about-me.css);
+@import url(./Portfolio/portfolio.css);
+
+.main {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}

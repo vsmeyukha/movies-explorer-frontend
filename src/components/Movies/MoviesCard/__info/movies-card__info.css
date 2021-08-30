@@ -1,0 +1,14 @@
+.movies-card__info {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-top: 18px;
+  margin-bottom: 18px;
+  padding-right: 18px;
+  padding-left: 18px;
+}

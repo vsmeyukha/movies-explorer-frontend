@@ -1,0 +1,15 @@
+.about-project__scale-text {
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 0;
+  text-align: center;
+
+  margin: 0;
+}
+
+@media screen and (max-width: 500px) {
+  .about-project__scale-text {
+    font-size: 11px;
+  }
+}

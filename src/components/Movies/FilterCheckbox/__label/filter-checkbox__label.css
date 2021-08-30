@@ -1,0 +1,11 @@
+.filter-checkbox__label {
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.38;
+}
+
+@media screen and (max-width: 550px) {
+  .filter-checkbox__label {
+    margin-left: 13px;
+  }
+}

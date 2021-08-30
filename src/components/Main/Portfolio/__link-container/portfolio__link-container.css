@@ -1,0 +1,10 @@
+.portfolio__link-container {
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 20px;
+}
+
+.portfolio__link-container:first-child {
+  margin-top: 0;
+}
