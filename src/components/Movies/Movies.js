@@ -30,7 +30,7 @@ function Movies(props) {
       <SearchForm
         onSubmit={addPreloader}
         wantedFilm={props.wantedFilm}
-        handleFilmSearchChange={props.handleFilmSearchChange}
+        handleFilmSearchChange={props.handleFilmSearchChange} 
       />
       {isLoading && <Preloader />}
       {props.moviesError &&
