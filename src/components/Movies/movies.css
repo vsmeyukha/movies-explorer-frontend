@@ -1,7 +1,9 @@
+@import url(../ErrorPopup/error-popup.css);
 @import url(./FilterCheckbox/filter-checkbox.css);
 @import url(./MoviesCard/movies-card.css);
 @import url(./MoviesCardList/movies-card-list.css);
 @import url(./Preloader/preloader.css);
+@import url(./Preloader/_active/preloader_active.css);
 @import url(./SearchForm/search-form.css);
 @import url(./MoreFilmsButton/more-films-button.css);
 

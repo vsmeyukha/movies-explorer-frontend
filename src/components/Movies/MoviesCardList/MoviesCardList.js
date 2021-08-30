@@ -5,7 +5,7 @@ import { BASE_URL } from '../../../utils/consts';
 function MoviesCardList(props) {
   return (
     <section className="movies-card-list">
-      {props.moviesList.map((movie) => {
+      {props.filteredMoviesList.map((movie) => {
         return (
           <MoviesCard
             key={movie.id}
@@ -20,21 +20,5 @@ function MoviesCardList(props) {
     </section>
   );
 };
-
-
-
-// function MoviesCardList(props) {
-//   return (
-//     <section className="movies-card-list">
-//       <MoviesCard saveFilm={props.saveFilm} isFilmSaved={props.isFilmSaved}/>
-//       <MoviesCard saveFilm={props.saveFilm} isFilmSaved={props.isFilmSaved}/>
-//       <MoviesCard saveFilm={props.saveFilm} isFilmSaved={props.isFilmSaved}/>
-//       <MoviesCard saveFilm={props.saveFilm} isFilmSaved={props.isFilmSaved}/>
-//       <MoviesCard saveFilm={props.saveFilm} isFilmSaved={props.isFilmSaved}/>
-//       <MoviesCard saveFilm={props.saveFilm} isFilmSaved={props.isFilmSaved}/>
-//       <MoviesCard saveFilm={props.saveFilm} isFilmSaved={props.isFilmSaved}/>
-//     </section>
-//   );
-// };
 
 export default MoviesCardList;
