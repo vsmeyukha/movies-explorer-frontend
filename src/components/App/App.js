@@ -38,27 +38,23 @@ function App() {
     }
   }
 
-  // todo починить все нахуй - done
-  // todo сделать, чтобы при первичной загрузке wantedFilm в него приходило значение из локалсторедж - done
-  // todo сделать, чтобы в локалсторедж сохранялся не фильтрованный массив, а wantedFilm - done
-  // todo сделать, чтобы в локалсторедж попадало нужное значение при первом же сабмите формы - done
-  // todo сделать, чтобы при первичной загрузке загружался результат предыдущего поиска - done
-
   // ? работа с инпутом
   // ? можно отдавать в локал сторедж значение инпута, а не массив
   // ? const [wantedFilm, setWantedFilm] = React.useState(() => { });
   // ? отсюда можно обратиться локалсторедж и забирать из него значение при первом рендере
+
+  // ? а вот через функцию, как Глеб говорил, у меня не получилось. чекнуть
+
+  // ? значение wantedFilm при первом рендере берется из локал стореджа
   const [wantedFilm, setWantedFilm] = React.useState(localStorage.getItem('filmRequest'));
 
   // function setWantedFilmWithLocalStorage() {
   //   setWantedFilm(saveFilteredMoviesListToLocalStorage);
   // }
   
-
-  // ? вроде получилось, но это костыли, на мой взгляд. потому что если в сторедж сохранять не evt.target.value, а стейт wantedFilm, то оно работает все равно блять сука с запаздыванием на один шаг. обязательно это проговорить
+  // ? присваиваем стейту wantedFilm значение из инпута и сохраняем этот стейт в локалсторедж
   const handleFilmSearchChange = (evt) => {
     setWantedFilm(evt.target.value);
-    localStorage.setItem('filmInputValue', evt.target.value);
   }
   
   // ? фильтрация первично полученного массива
@@ -70,8 +66,11 @@ function App() {
     );
   }
 
+  // ? в эту переменную складывается результат работы функции filterMovies при каждом изменении любой из dependencies
   const filteredMoviesList = React.useMemo(() => filterMovies(moviesList, wantedFilm), [moviesList, wantedFilm]);
-  const searchRequestFromTheStorage = React.useMemo(() => saveFilmRequestToLocalStorage(wantedFilm), [wantedFilm]);
+
+  // ? вызывается функция saveFilmRequestToLocalStorage и соответственно сохраняется в локал сторедж значение стейта wantedFilm при каждом изменении зависимости
+  React.useMemo(() => saveFilmRequestToLocalStorage(wantedFilm), [wantedFilm]);
   console.log(localStorage.getItem('filmRequest'));
 
   // ? сохраняем отфильтрованный массив в LocalStorage
@@ -80,36 +79,10 @@ function App() {
     return moviesFromTheStorage;
   }
 
-  // ! разные советы даются: пихать в юз эффект все, чтобы оно ререндерилось принудительно. надо проверить, но зачем запрос к апи пихать при рендеринге первичном. странно. второй вариант - перенести переменные в movies из app и посмотреть, как оно будет
-
-  // ? собираем все действия с массивом фильмов в одну функцию, прежде чем отправим ее вниз по цепочке
-  // ? а уже и нет никаких действий, которые надо отправлять по цепочке вниз. можно wrapper downloadMovies убрать
-  const downloadMovies = () => {
-    getMoviesList();
-  }
-
-  React.useEffect(() => {
-    getMoviesList();
-  }, []);
-
-  // ? снова ни хуя не работает из-за вот этой вот пиздохуйни ререндерной
+  // ? эффект при первичном рендере компонента. посылается запрос к АПИ. а все остальное работает автоматом из-за useMemo
+  // ? перенес функционал эффекта в компонент Movies. все продолжает работать. надо чекнуть, какое решение более валидно
   // React.useEffect(() => {
-  //   setWantedFilm(localStorage.getItem('filmSearch'));
   //   getMoviesList();
-  //   filterMovies()
-  // }, []);
-
-  // React.useEffect(() => {
-  //   const moviesFromTheStorage = JSON.parse(localStorage.getItem('filteredMoviesList'));
-  //   setFilteredMoviesList(moviesFromTheStorage);
-  // }, []);
-
-  // React.useEffect(() => {
-  //   console.log(JSON.parse(localStorage.getItem('filteredMoviesList')));
-  //   const listFromTheStorage = JSON.parse(localStorage.getItem('filteredMoviesList'));
-  //   getMoviesList();
-  //   filterMovies(moviesList, wantedFilm);
-  //   console.log(filteredMoviesList);
   // }, []);
 
   // ? отработка ошибки получения фильмов
@@ -162,7 +135,7 @@ function App() {
               wantedFilm={wantedFilm}
               handleFilmSearchChange={handleFilmSearchChange}
               filteredMoviesList={filteredMoviesList}
-              downloadMovies={downloadMovies}
+              getMoviesList={getMoviesList}
             />
           </Route>
           <Route path="/saved-movies">

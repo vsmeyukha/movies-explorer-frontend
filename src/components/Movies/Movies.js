@@ -21,9 +21,14 @@ function Movies(props) {
   // ? добавляем прелоадер к функции рендера списка фильмов
   const addPreloader = async () => {
     createPreloader();
-    await props.downloadMovies();
+    await props.getMoviesList();
     removePreloader();
   }
+
+  // ? эффект - при первичном рендере компонента вызывается функция загрузки фильмов с прелоадером 
+  React.useEffect(() => {
+    addPreloader();
+  }, []);
 
   return (
     <>
