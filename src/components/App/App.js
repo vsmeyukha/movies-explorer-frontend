@@ -32,68 +32,85 @@ function App() {
     try {
       const movies = await moviesApi.getMovies();
       setMoviesList(movies);
-      console.log('это нефильтрованный список');
-      console.log(moviesList);
     } catch (e) {
       console.log(e);
       setMoviesError(e);
     }
   }
 
-  // ? на простых переменных
-  // let moviesList;
-
-  // const getMoviesList = async () => {
-  //   try {
-  //     moviesList = await moviesApi.getMovies();
-  //     console.log('это нефильтрованный список');
-  //     console.log(moviesList);
-  //   } catch (e) {
-  //     console.log(e);
-  //     setMoviesError(e);
-  //   }
-  // }
+  // todo починить все нахуй - done
+  // todo сделать, чтобы при первичной загрузке wantedFilm в него приходило значение из локалсторедж - done
+  // todo сделать, чтобы в локалсторедж сохранялся не фильтрованный массив, а wantedFilm - done
+  // todo сделать, чтобы в локалсторедж попадало нужное значение при первом же сабмите формы - done
+  // todo сделать, чтобы при первичной загрузке загружался результат предыдущего поиска - done
 
   // ? работа с инпутом
-  const [wantedFilm, setWantedFilm] = React.useState('');
+  // ? можно отдавать в локал сторедж значение инпута, а не массив
+  // ? const [wantedFilm, setWantedFilm] = React.useState(() => { });
+  // ? отсюда можно обратиться локалсторедж и забирать из него значение при первом рендере
+  const [wantedFilm, setWantedFilm] = React.useState(localStorage.getItem('filmRequest'));
 
+  // function setWantedFilmWithLocalStorage() {
+  //   setWantedFilm(saveFilteredMoviesListToLocalStorage);
+  // }
+  
+
+  // ? вроде получилось, но это костыли, на мой взгляд. потому что если в сторедж сохранять не evt.target.value, а стейт wantedFilm, то оно работает все равно блять сука с запаздыванием на один шаг. обязательно это проговорить
   const handleFilmSearchChange = (evt) => {
     setWantedFilm(evt.target.value);
+    localStorage.setItem('filmInputValue', evt.target.value);
   }
   
   // ? фильтрация первично полученного массива
-  const [filteredMoviesList, setFilteredMoviesList] = React.useState([]);
-
-  const filterMovies = () => {
-    setFilteredMoviesList(
+  const filterMovies = (moviesList, wantedFilm) => {
+    return (
       moviesList.filter(movie =>
         movie.nameRU.toLowerCase().includes(wantedFilm.toLowerCase())
       )
     );
-    console.log('это фильтрованный список:');
-    console.log(filteredMoviesList);
   }
 
+  const filteredMoviesList = React.useMemo(() => filterMovies(moviesList, wantedFilm), [moviesList, wantedFilm]);
+  const searchRequestFromTheStorage = React.useMemo(() => saveFilmRequestToLocalStorage(wantedFilm), [wantedFilm]);
+  console.log(localStorage.getItem('filmRequest'));
+
   // ? сохраняем отфильтрованный массив в LocalStorage
-  const saveFilteredMoviesListToLocalStorage = () => {
-    localStorage.setItem('filteredMoviesList', JSON.stringify(filteredMoviesList));
-    console.log('это то, что сохранено в storage:')
-    console.log(JSON.parse(localStorage.getItem('filteredMoviesList')));
+  function saveFilmRequestToLocalStorage(wantedFilm) {
+    const moviesFromTheStorage = localStorage.setItem('filmRequest', wantedFilm);
+    return moviesFromTheStorage;
   }
 
   // ! разные советы даются: пихать в юз эффект все, чтобы оно ререндерилось принудительно. надо проверить, но зачем запрос к апи пихать при рендеринге первичном. странно. второй вариант - перенести переменные в movies из app и посмотреть, как оно будет
 
   // ? собираем все действия с массивом фильмов в одну функцию, прежде чем отправим ее вниз по цепочке
-  const downloadMovies = async () => {
-    await getMoviesList();
-    await filterMovies();
-    await saveFilteredMoviesListToLocalStorage();
+  // ? а уже и нет никаких действий, которые надо отправлять по цепочке вниз. можно wrapper downloadMovies убрать
+  const downloadMovies = () => {
+    getMoviesList();
   }
 
   React.useEffect(() => {
-    const moviesFromTheStorage = JSON.parse(localStorage.getItem('filteredMoviesList'));
-    setFilteredMoviesList(moviesFromTheStorage);
+    getMoviesList();
   }, []);
+
+  // ? снова ни хуя не работает из-за вот этой вот пиздохуйни ререндерной
+  // React.useEffect(() => {
+  //   setWantedFilm(localStorage.getItem('filmSearch'));
+  //   getMoviesList();
+  //   filterMovies()
+  // }, []);
+
+  // React.useEffect(() => {
+  //   const moviesFromTheStorage = JSON.parse(localStorage.getItem('filteredMoviesList'));
+  //   setFilteredMoviesList(moviesFromTheStorage);
+  // }, []);
+
+  // React.useEffect(() => {
+  //   console.log(JSON.parse(localStorage.getItem('filteredMoviesList')));
+  //   const listFromTheStorage = JSON.parse(localStorage.getItem('filteredMoviesList'));
+  //   getMoviesList();
+  //   filterMovies(moviesList, wantedFilm);
+  //   console.log(filteredMoviesList);
+  // }, []);
 
   // ? отработка ошибки получения фильмов
   const [moviesError, setMoviesError] = React.useState('');
