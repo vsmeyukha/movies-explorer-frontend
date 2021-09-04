@@ -1,5 +1,6 @@
 import React from 'react';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
+import MoreFilmsButton from './MoreFilmsButton/MoreFilmsButton';
 import SearchForm from './SearchForm/SearchForm';
 import Preloader from './Preloader/Preloader';
 import ErrorPopup from '../ErrorPopup/ErrorPopup';
@@ -29,28 +30,6 @@ function Movies(props) {
     addPreloader();
   }, []);
 
-  // ? делаем подгрузку фильмов по клику на кнопку "еще"
-
-  // // ? в этой переменной - число постов, которые будут загружены после клика на кнопку "еще"
-  // const postsPerPage = 3;
-  // // ? а в массиве ниже - будут лежать сами посты до того, как мы им сделаем видимыми
-  // let arrayForHoldingPosts = [];
-
-  // const [moviesToShow, setMoviesToShow] = React.useState([]);
-  // const [next, setNext] = React.useState(3);
-
-  // // ? делаем урезанный массив из полного массива. и записываем урехзанный массив в стейт постов, которые будем показывать
-  // const loopWithSlice = (start, end) => {
-  //   const slicedMovies = props.filteredMoviesList.slice(start, end);
-  //   arrayForHoldingPosts = [...arrayForHoldingPosts, ...slicedMovies];
-  //   setMoviesToShow(arrayForHoldingPosts);
-  // }
-
-  // const handleShowMoreMovies = () => {
-  //   loopWithSlice(next, next + postsPerPage);
-  //   setNext(next + postsPerPage);
-  // }
-
   return (
     <>
       <SearchForm
@@ -75,10 +54,14 @@ function Movies(props) {
         filteredMoviesList={props.filteredMoviesList}
         filteredShortMoviesList={props.filteredShortMoviesList}
         shortFilms={props.shortFilms}
-        handleAddMovies={props.handleAddMovies}
         preparedMoviesList={props.preparedMoviesList}
-        hasAdditionalFilms={props.hasAdditionalFilms}
       />
+      {props.hasAdditionalFilms &&
+      <MoreFilmsButton
+        handleShowMoreMovies={props.handleShowMoreMovies}
+        handleAddMovies={props.handleAddMovies}
+      />
+      }
     </>
   );
 };

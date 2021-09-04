@@ -22,44 +22,42 @@ import ThemeContext from '../../contexts/ThemeContext';
 // ? импортируем API
 import * as moviesApi from '../../utils/MoviesApi';
 
-// ? сколько фильмов изначально показываем
-const INITIAL_MOVIES_COUNT = 12;
-const MOVIES_COUNT_INCREMENT = 3;
+// ? конфиги для разных разрешений
+const configDesktop = {
+  INITIAL_MOVIES_COUNT: 12,
+  MOVIES_COUNT_INCREMENT: 3
+}
+
+const configTablet = {
+  INITIAL_MOVIES_COUNT: 8,
+  MOVIES_COUNT_INCREMENT: 2
+}
+
+const configMobile = {
+  INITIAL_MOVIES_COUNT: 5,
+  MOVIES_COUNT_INCREMENT: 1
+}
 
 function App() {
 
   // ? реализуем загрузку разного числа фильмов в зависимости от ширины экрана
-  const [config, setConfig] = React.useState();
+  const [config, setConfig] = React.useState({});
 
+  // ? при монтировании компонента решаем, сколько фильмов изначально показываем и какое кол-во фильмов прибавляется дополнительно при клике на кнопку "еще"
   React.useEffect(() => {
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
+    function getConfig() {
+      if (window.matchMedia("(max-width: 480px)").matches) {
+        setConfig(configMobile);
+      } else
+        if (window.matchMedia("(max-width: 768px)").matches) {
+          setConfig(configTablet);
+        } else {
+          setConfig(configDesktop);
+        }
     }
 
-    function handleResize() {
-      
-    }
+    getConfig();
   }, []);
-
-  // React.useEffect(() => {
-  //   window.addEventListener('resize', handleResize);
-
-  //   return () => {
-  //     window.removeEventListener('resize', handleResize)
-  //   }
-  // }
-
-//   function getConfig() {
-//   if (window.matchMedia("(max-width: 768px)").matches) {
-//     return {
-//       INITIAL_MOVIES_COUNT: 12,
-//       MOVIES_COUNT_INCREMENT: 3
-//     }
-//   }
-// }
-
 
   // ? реализация загрузки фильмов из общей базы
   // ? на стейт-переменных
@@ -76,19 +74,11 @@ function App() {
   }
 
   // ? работа с инпутом
-  // ? можно отдавать в локал сторедж значение инпута, а не массив
-  // ? const [wantedFilm, setWantedFilm] = React.useState(() => { });
-  // ? отсюда можно обратиться локалсторедж и забирать из него значение при первом рендере
 
   // ? значение wantedFilm при первом рендере берется из локал стореджа
   const [wantedFilm, setWantedFilm] = React.useState(localStorage.getItem('filmRequest'));
 
   const [additionalFilmsCount, setAdditionalFilmsCount] = React.useState(0);
-
-    // ? а вот через функцию, как Глеб говорил, у меня не получилось. чекнуть
-  // function setWantedFilmWithLocalStorage() {
-  //   setWantedFilm(saveFilteredMoviesListToLocalStorage);
-  // }
   
   // ? присваиваем стейту wantedFilm значение из инпута и сохраняем этот стейт в локалсторедж
   const handleFilmSearchChange = (evt) => {
@@ -109,9 +99,6 @@ function App() {
     console.log(shortFilms);
   }
 
-  // ? useMemo не работает
-  // const shorttttt = React.useMemo(() => handleShortFilmsSearch(), [shortFilms]);
-
   // ? фильтрация первично полученного массива
   const filterMovies = (moviesList, wantedFilm) => {
     return (
@@ -121,14 +108,18 @@ function App() {
     );
   }
 
+  // ? написать коммент
   const handleAddMovies = () => {
-    setAdditionalFilmsCount((previousAdditionalFilmsCount) => previousAdditionalFilmsCount + MOVIES_COUNT_INCREMENT);
+    setAdditionalFilmsCount((previousAdditionalFilmsCount) => previousAdditionalFilmsCount + config.MOVIES_COUNT_INCREMENT);
   }
 
   // ? в эту переменную складывается результат работы функции filterMovies при каждом изменении любой из dependencies
   const filteredMoviesList = React.useMemo(() => filterMovies(moviesList, wantedFilm), [moviesList, wantedFilm]);
-  const preparedMoviesList = React.useMemo(() => filteredMoviesList.slice(0, INITIAL_MOVIES_COUNT + additionalFilmsCount), [filteredMoviesList, additionalFilmsCount]);
 
+  // ? написать коммент
+  const preparedMoviesList = React.useMemo(() => filteredMoviesList.slice(0, config.INITIAL_MOVIES_COUNT + additionalFilmsCount), [filteredMoviesList, additionalFilmsCount, config.INITIAL_MOVIES_COUNT]);
+
+  // ? написать коммент
   const hasAdditionalFilms = filteredMoviesList.length > 12;
 
   // ? формируем список короткометражек
@@ -136,9 +127,8 @@ function App() {
     return filteredMoviesList.filter(movie => movie.duration <= 40);
   }
 
+  // ? написать коммент
   const filteredShortMoviesList = React.useMemo(() => filterShortMovies(filteredMoviesList), [filteredMoviesList]);
-  console.log(filteredMoviesList);
-  console.log(filteredShortMoviesList);
 
   // ? вызывается функция saveFilmRequestToLocalStorage и соответственно сохраняется в локал сторедж значение стейта wantedFilm при каждом изменении зависимости
   React.useMemo(() => saveFilmRequestToLocalStorage(wantedFilm), [wantedFilm]);
@@ -148,12 +138,6 @@ function App() {
     const moviesFromTheStorage = localStorage.setItem('filmRequest', wantedFilm);
     return moviesFromTheStorage;
   }
-
-  // ? эффект при первичном рендере компонента. посылается запрос к АПИ. а все остальное работает автоматом из-за useMemo
-  // ? перенес функционал эффекта в компонент Movies. все продолжает работать. надо чекнуть, какое решение более валидно
-  // React.useEffect(() => {
-  //   getMoviesList();
-  // }, []);
 
   // ? отработка ошибки получения фильмов
   const [moviesError, setMoviesError] = React.useState('');
@@ -238,4 +222,3 @@ function App() {
 }
 
 export default App;
-

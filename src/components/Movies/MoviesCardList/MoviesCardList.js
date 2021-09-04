@@ -1,6 +1,5 @@
 import React from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import MoreFilmsButton from '../MoreFilmsButton/MoreFilmsButton';
 import { BASE_URL } from '../../../utils/consts';
 
 function MoviesCardList(props) {
@@ -31,30 +30,6 @@ function MoviesCardList(props) {
 
   const renderCardList = arr => arr.map(movie => renderCard(movie));
 
-  // const whatToRender = () => {
-  //   if (props.shortFilms) {
-  //     return renderCardList(props.filteredShortMoviesList);
-  //   } else
-  //     if (props.filteredMoviesList.length > 12) {
-  //       const slicedMoviesList = props.filteredMoviesList.slice(0, 12);
-  //       return renderCardList(slicedMoviesList);
-  //     } else
-  //       if (props.filteredMoviesList.length > 12 && props.shortFilms) {
-  //         return renderCardList(props.filteredShortMoviesList);
-  //       } else {
-  //         return renderCardList(props.filteredMoviesList);
-  //       }
-  // }
-
-  // // ? отрисовка скрытой части массива по нажатию на кнопку "еще"
-  // const showMoreFilms = () => {
-  //   for (let i = 12; i >= 12 && i < props.filteredMoviesList.length; i = i + 3) {
-  //     const threeMovies = props.filteredMoviesList.slice(i, i + 3);
-  //     console.log(threeMovies);
-  //     return renderCardList(threeMovies);
-  //   }
-  // }
-
   // ? не самое крутое решение, моргает nothingFound до загрузки. пока неясно, как пофиксить, если мы отправляем при первом рендере запрос к АПИ
   return (
     <section className="movies-card-list">
@@ -63,13 +38,7 @@ function MoviesCardList(props) {
           ?
           renderNothingFound()
           :
-          props.preparedMoviesList.map(movie => renderCard(movie))
-      }
-      {props.hasAdditionalFilms &&
-      <MoreFilmsButton
-        handleShowMoreMovies={props.handleShowMoreMovies}
-        handleAddMovies={props.handleAddMovies}
-      />
+          props.shortFilms ? renderCardList(props.filteredShortMoviesList) : renderCardList(props.preparedMoviesList)
       }
     </section>
   );
