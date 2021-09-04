@@ -48,7 +48,11 @@ function SearchForm(props) {
           <button type="submit" className="search-form__submit"></button>
         </fieldset>
         <div className="search-form__borderline"></div>
-        <FilterCheckBox checkboxName="Короткометражки"/>
+        <FilterCheckBox
+          checkboxName="Короткометражки"
+          handleShortFilmsSearch={props.handleShortFilmsSearch}
+          shortFilms={props.shortFilms}
+        />
       </form>
         
     </>

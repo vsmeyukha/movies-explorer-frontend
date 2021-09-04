@@ -22,7 +22,44 @@ import ThemeContext from '../../contexts/ThemeContext';
 // ? импортируем API
 import * as moviesApi from '../../utils/MoviesApi';
 
+// ? сколько фильмов изначально показываем
+const INITIAL_MOVIES_COUNT = 12;
+const MOVIES_COUNT_INCREMENT = 3;
+
 function App() {
+
+  // ? реализуем загрузку разного числа фильмов в зависимости от ширины экрана
+  const [config, setConfig] = React.useState();
+
+  React.useEffect(() => {
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    }
+
+    function handleResize() {
+      
+    }
+  }, []);
+
+  // React.useEffect(() => {
+  //   window.addEventListener('resize', handleResize);
+
+  //   return () => {
+  //     window.removeEventListener('resize', handleResize)
+  //   }
+  // }
+
+//   function getConfig() {
+//   if (window.matchMedia("(max-width: 768px)").matches) {
+//     return {
+//       INITIAL_MOVIES_COUNT: 12,
+//       MOVIES_COUNT_INCREMENT: 3
+//     }
+//   }
+// }
+
 
   // ? реализация загрузки фильмов из общей базы
   // ? на стейт-переменных
@@ -34,7 +71,7 @@ function App() {
       setMoviesList(movies);
     } catch (e) {
       console.log(e);
-      setMoviesError(e);
+      setMoviesError(e.message);
     }
   }
 
@@ -43,11 +80,12 @@ function App() {
   // ? const [wantedFilm, setWantedFilm] = React.useState(() => { });
   // ? отсюда можно обратиться локалсторедж и забирать из него значение при первом рендере
 
-  // ? а вот через функцию, как Глеб говорил, у меня не получилось. чекнуть
-
   // ? значение wantedFilm при первом рендере берется из локал стореджа
   const [wantedFilm, setWantedFilm] = React.useState(localStorage.getItem('filmRequest'));
 
+  const [additionalFilmsCount, setAdditionalFilmsCount] = React.useState(0);
+
+    // ? а вот через функцию, как Глеб говорил, у меня не получилось. чекнуть
   // function setWantedFilmWithLocalStorage() {
   //   setWantedFilm(saveFilteredMoviesListToLocalStorage);
   // }
@@ -56,7 +94,24 @@ function App() {
   const handleFilmSearchChange = (evt) => {
     setWantedFilm(evt.target.value);
   }
-  
+
+  // ? стейт фильтра короткометражек
+  const [shortFilms, setShortFilms] = React.useState(false);
+
+  // ? return не работает тоже
+  const handleShortFilmsSearch = () => {
+    setShortFilms(!shortFilms);
+    return shortFilms;
+  }
+
+  const tryToSearch = () => {
+    handleShortFilmsSearch();
+    console.log(shortFilms);
+  }
+
+  // ? useMemo не работает
+  // const shorttttt = React.useMemo(() => handleShortFilmsSearch(), [shortFilms]);
+
   // ? фильтрация первично полученного массива
   const filterMovies = (moviesList, wantedFilm) => {
     return (
@@ -66,12 +121,27 @@ function App() {
     );
   }
 
+  const handleAddMovies = () => {
+    setAdditionalFilmsCount((previousAdditionalFilmsCount) => previousAdditionalFilmsCount + MOVIES_COUNT_INCREMENT);
+  }
+
   // ? в эту переменную складывается результат работы функции filterMovies при каждом изменении любой из dependencies
   const filteredMoviesList = React.useMemo(() => filterMovies(moviesList, wantedFilm), [moviesList, wantedFilm]);
+  const preparedMoviesList = React.useMemo(() => filteredMoviesList.slice(0, INITIAL_MOVIES_COUNT + additionalFilmsCount), [filteredMoviesList, additionalFilmsCount]);
+
+  const hasAdditionalFilms = filteredMoviesList.length > 12;
+
+  // ? формируем список короткометражек
+  const filterShortMovies = (filteredMoviesList) => {
+    return filteredMoviesList.filter(movie => movie.duration <= 40);
+  }
+
+  const filteredShortMoviesList = React.useMemo(() => filterShortMovies(filteredMoviesList), [filteredMoviesList]);
+  console.log(filteredMoviesList);
+  console.log(filteredShortMoviesList);
 
   // ? вызывается функция saveFilmRequestToLocalStorage и соответственно сохраняется в локал сторедж значение стейта wantedFilm при каждом изменении зависимости
   React.useMemo(() => saveFilmRequestToLocalStorage(wantedFilm), [wantedFilm]);
-  console.log(localStorage.getItem('filmRequest'));
 
   // ? сохраняем отфильтрованный массив в LocalStorage
   function saveFilmRequestToLocalStorage(wantedFilm) {
@@ -136,6 +206,12 @@ function App() {
               handleFilmSearchChange={handleFilmSearchChange}
               filteredMoviesList={filteredMoviesList}
               getMoviesList={getMoviesList}
+              handleShortFilmsSearch={tryToSearch}
+              shortFilms={shortFilms}
+              filteredShortMoviesList={filteredShortMoviesList}
+              handleAddMovies={handleAddMovies}
+              preparedMoviesList={preparedMoviesList}
+              hasAdditionalFilms={hasAdditionalFilms}
             />
           </Route>
           <Route path="/saved-movies">
@@ -162,3 +238,4 @@ function App() {
 }
 
 export default App;
+

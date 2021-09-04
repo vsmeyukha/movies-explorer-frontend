@@ -1,5 +1,4 @@
 import React from 'react';
-import imgPath from '../../../images/moviesCard.jpg';
 
 function MoviesCard(props) {
   const likeClassName = (`movies-card__like ${props.isFilmSaved && `movies-card__like_active`}`);
