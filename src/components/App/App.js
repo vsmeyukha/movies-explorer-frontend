@@ -1,6 +1,6 @@
 // ? импортируем инфраструктуру
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 
 // ? импортируем компоненты
 import './App.css';
@@ -16,11 +16,13 @@ import Profile from '../Profile/Profile';
 import MenuPopup from '../MenuPopup/MenuPopup';
 import PageNotFound from '../PageNotFound/PageNotFound';
 
-// ? импортируем контекст
+// ? импортируем контексты
 import ThemeContext from '../../contexts/ThemeContext';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 // ? импортируем API
 import * as moviesApi from '../../utils/MoviesApi';
+import * as mainApi from '../../utils/MainApi';
 
 // ? конфиги для разных разрешений
 const configDesktop = {
@@ -39,6 +41,115 @@ const configMobile = {
 }
 
 function App() {
+
+  const history = useHistory();
+
+    // ? создаем переменную состояния для задания контекста
+    const [currentUser, setCurrentUser] = React.useState({
+      email: '',
+      name: ''
+    });
+
+  // ? записываем в стейт данные из инпутов почты, пароля, имени
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [name, setName] = React.useState('');
+
+  // ? передаем в стейт значение инпута
+  const handleEmailChange = (evt) => {
+    setEmail(evt.target.value);
+  }
+
+  // ? передаем в стейт значение инпута
+  const handlePasswordChange = (evt) => {
+    setPassword(evt.target.value);
+  }
+
+  // ? передаем в стейт значение инпута
+  const handleNameChange = (evt) => {
+    setName(evt.target.value);
+  }
+
+  // ? регистрация в приложении
+  function handleRegistration(email, password, name) {
+    mainApi.register(email, password, name)
+    .then((res) => {
+      if (res) {
+        console.log(res);
+        history.push('/signin');
+      } else {
+        return;
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+  }
+
+  // ? стейт логина
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+
+  // ? меняем флажок логина
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  }
+
+  // ? функция авторизации => отправляем запрос к АПИ. если все ок, то переключаем флажок логина на true и перекидываем пользователя на страницу фильмов
+  function handleAuthorization(email, password) {
+    mainApi.authorize(email, password)
+      .then((res) => {
+        handleLogin();
+        history.push('/movies');
+      })
+      .catch(err => console.error(err));
+  }
+
+  // ? функция обновления данных профиля
+  function handleUpdateUser(email, name) {
+    console.log(email);
+    console.log(name);
+    mainApi.editProfile(email, name)
+      .then(data => {
+        setCurrentUser(data);
+      })
+      .catch(err => console.error(`Ошибка при редактировании данных профиля: ${err}`));
+  }
+
+  // ? функция разлогина => отправляем запрос к АПИ, который удаляет jwt-токен из кук. меняем флажок логина на false и перебрасываем пользователя на главную страницу, не требующую авторизации
+  function signOut() {
+    mainApi.signOut()
+      .then((data) => {
+        console.log(data);
+        setIsLoggedIn(false);
+        history.push('/');
+      })
+      .catch((err) => console.error(err));
+  }
+
+  // ? остается написать эффект, обращающийся к АПИ за значениями юзера, чтобы записать их в контекст юзера
+  React.useEffect(() => {
+    function authForTheFirstTime() {
+      mainApi.getUserData()
+      .then((data) => {
+        if (data) {
+
+          handleLogin();
+
+          setCurrentUser(data);
+          
+          history.push('/movies');
+        } else {
+          console.log('не пришли данные о юзере');
+        }
+      })
+      .catch(err => console.error(err));
+    };
+
+    // ! вызывать токенчек только когда пользоваетль не залогинен 
+    if (!isLoggedIn) {
+      authForTheFirstTime();
+    } return;
+  }, [isLoggedIn, history]);
 
   // ? реализуем загрузку разного числа фильмов в зависимости от ширины экрана
   const [config, setConfig] = React.useState({});
@@ -96,7 +207,6 @@ function App() {
 
   const tryToSearch = () => {
     handleShortFilmsSearch();
-    console.log(shortFilms);
   }
 
   // ? фильтрация первично полученного массива
@@ -173,50 +283,73 @@ function App() {
 
   return (
     <ThemeContext.Provider value={day} >
-      <div className={`page ${!day && `page_black`}`}>
-        <Header onMenuClick={handleMenuOpenClick} changeTheme={changeTheme}/>
-        <Switch>
-          <Route exact path="/">
-            <Main />
-          </Route>
-          <Route path="/movies">
-            <Movies
-              saveFilm={saveFilm}
-              isFilmSaved={isFilmSaved}
-              moviesList={moviesList}
-              moviesError={moviesError}
-              eraseMoviesError={eraseMoviesError}
-              wantedFilm={wantedFilm}
-              handleFilmSearchChange={handleFilmSearchChange}
-              filteredMoviesList={filteredMoviesList}
-              getMoviesList={getMoviesList}
-              handleShortFilmsSearch={tryToSearch}
-              shortFilms={shortFilms}
-              filteredShortMoviesList={filteredShortMoviesList}
-              handleAddMovies={handleAddMovies}
-              preparedMoviesList={preparedMoviesList}
-              hasAdditionalFilms={hasAdditionalFilms}
-            />
-          </Route>
-          <Route path="/saved-movies">
-            <SavedMovies />
-          </Route>
-          <Route path="/profile">
-            <Profile />
-          </Route>
-          <Route path="/signin">
-            <SignIn />
-          </Route>
-          <Route path="/signup">
-            <Register />
-          </Route>
-          <Route path="*">
-            <PageNotFound />
-          </Route>
-        </Switch>
-        <Footer />
-        <MenuPopup isOpen={isMenuOpen} onClose={closeMenu}/>
-      </div>
+      <CurrentUserContext.Provider value={currentUser} >
+        <div className={`page ${!day && `page_black`}`}>
+          <Header onMenuClick={handleMenuOpenClick} changeTheme={changeTheme}/>
+          <Switch>
+            <Route exact path="/">
+              <Main />
+            </Route>
+            <Route path="/movies">
+              <Movies
+                saveFilm={saveFilm}
+                isFilmSaved={isFilmSaved}
+                moviesList={moviesList}
+                moviesError={moviesError}
+                eraseMoviesError={eraseMoviesError}
+                wantedFilm={wantedFilm}
+                handleFilmSearchChange={handleFilmSearchChange}
+                filteredMoviesList={filteredMoviesList}
+                getMoviesList={getMoviesList}
+                handleShortFilmsSearch={tryToSearch}
+                shortFilms={shortFilms}
+                filteredShortMoviesList={filteredShortMoviesList}
+                handleAddMovies={handleAddMovies}
+                preparedMoviesList={preparedMoviesList}
+                hasAdditionalFilms={hasAdditionalFilms}
+              />
+            </Route>
+            <Route path="/saved-movies">
+              <SavedMovies />
+            </Route>
+            <Route path="/profile">
+              <Profile
+                handleUpdateUser={handleUpdateUser}
+                name={name}
+                email={email}
+                handleEmailChange={handleEmailChange}
+                handleNameChange={handleNameChange}
+                signOut={signOut}
+              />
+            </Route>
+            <Route path="/signin">
+              <SignIn
+                handleAuthorization={handleAuthorization}
+                email={email}
+                password={password}
+                handleEmailChange={handleEmailChange}
+                handlePasswordChange={handlePasswordChange}
+              />
+            </Route>
+            <Route path="/signup">
+              <Register
+                handleRegistration={handleRegistration}
+                name={name}
+                email={email}
+                password={password}
+                handleEmailChange={handleEmailChange}
+                handlePasswordChange={handlePasswordChange}
+                handleNameChange={handleNameChange}
+              />
+            </Route>
+            <Route path="*">
+              <PageNotFound />
+            </Route>
+          </Switch>
+          <Footer />
+          <MenuPopup isOpen={isMenuOpen} onClose={closeMenu}/>
+        </div>
+      </CurrentUserContext.Provider>
     </ThemeContext.Provider>
   )
 }

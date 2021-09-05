@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import ThemeContext from '../../contexts/ThemeContext';
 import AuthForm from '../AuthForm/AuthForm';
 
-function Register() {
+function Register(props) {
   const day = React.useContext(ThemeContext);
 
   return (
@@ -17,9 +17,25 @@ function Register() {
         authText="Уже зарегистрированы?"
         authLink="/signin"
         authLinkText="Войти"
+        onSubmit={props.handleRegistration}
+        email={props.email}
+        password={props.password}
+        handleEmailChange={props.handleEmailChange}
+        handlePasswordChange={props.handlePasswordChange}
+        name={props.name}
       >
-        <label className="auth-form__label" htmlFor="name">Имя</label>
-        <input className={`auth-form__input ${!day && `auth-form__input_black`}`} id="name" placeholder="Виктор"></input>
+        <label
+          className="auth-form__label"
+          htmlFor="name"
+        >Имя</label>
+        <input
+          className={`auth-form__input ${!day && `auth-form__input_black`}`}
+          id="name"
+          placeholder="Виктор"
+          value={props.name}
+          onChange={props.handleNameChange}
+          required
+        ></input>
       </ AuthForm>
     </section>
   );

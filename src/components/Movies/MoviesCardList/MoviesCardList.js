@@ -38,7 +38,11 @@ function MoviesCardList(props) {
           ?
           renderNothingFound()
           :
-          props.shortFilms ? renderCardList(props.filteredShortMoviesList) : renderCardList(props.preparedMoviesList)
+          props.shortFilms
+            ?
+            renderCardList(props.filteredShortMoviesList)
+            :
+            renderCardList(props.preparedMoviesList)
       }
     </section>
   );
