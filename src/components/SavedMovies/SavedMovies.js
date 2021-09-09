@@ -2,11 +2,15 @@ import React from 'react';
 import SearchForm from '../Movies/SearchForm/SearchForm';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
 
-function SavedMovies() {
+function SavedMovies(props) {
   return (
     <>
       <SearchForm />
-      <MoviesCardList />
+      <MoviesCardList
+        deleteFilmFromTheBase={props.deleteFilmFromTheBase}
+        savedMoviesList={props.savedMoviesList}
+        setSavedMoviesList={props.setSavedMoviesList}
+      />
     </>
   );
 };

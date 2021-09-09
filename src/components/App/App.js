@@ -24,6 +24,9 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 import * as moviesApi from '../../utils/MoviesApi';
 import * as mainApi from '../../utils/MainApi';
 
+// ? импортируем константы
+import { BASE_URL, MOVIES_URL } from '../../utils/consts';
+
 // ? конфиги для разных разрешений
 const configDesktop = {
   INITIAL_MOVIES_COUNT: 12,
@@ -40,9 +43,13 @@ const configMobile = {
   MOVIES_COUNT_INCREMENT: 1
 }
 
+// const mapping = { DESKTOP: { MOVIES_PER_ROW: 3 }}
+
 function App() {
 
   const history = useHistory();
+
+  // ! ФУНКЦИОНАЛ ПОЛЬЗОВАТЕЛЯ: ЛОГИН, АВТОРИЗАЦИЯ, РЕДАКТИРОВАНИЕ ПРОФИЛЯ, РАЗЛОГИН
 
     // ? создаем переменную состояния для задания контекста
     const [currentUser, setCurrentUser] = React.useState({
@@ -110,7 +117,7 @@ function App() {
     console.log(name);
     mainApi.editProfile(email, name)
       .then(data => {
-        setCurrentUser(data);
+        setCurrentUser(data.user);
       })
       .catch(err => console.error(`Ошибка при редактировании данных профиля: ${err}`));
   }
@@ -145,30 +152,48 @@ function App() {
       .catch(err => console.error(err));
     };
 
-    // ! вызывать токенчек только когда пользоваетль не залогинен 
+    // вызывать токенчек только когда пользоваетль не залогинен 
     if (!isLoggedIn) {
       authForTheFirstTime();
     } return;
   }, [isLoggedIn, history]);
 
+  // ! РАБОТА С ОБЩЕЙ БАЗОЙ ФИЛЬМОВ: ОТОБРАЖЕНИЕ, ПОИСК, ФИЛЬТРАЦИЯ
+
   // ? реализуем загрузку разного числа фильмов в зависимости от ширины экрана
   const [config, setConfig] = React.useState({});
 
   // ? при монтировании компонента решаем, сколько фильмов изначально показываем и какое кол-во фильмов прибавляется дополнительно при клике на кнопку "еще"
-  React.useEffect(() => {
-    function getConfig() {
-      if (window.matchMedia("(max-width: 480px)").matches) {
-        setConfig(configMobile);
-      } else
-        if (window.matchMedia("(max-width: 768px)").matches) {
-          setConfig(configTablet);
-        } else {
-          setConfig(configDesktop);
-        }
-    }
 
-    getConfig();
-  }, []);
+  const [totalFilmsCount, setTotalFilmsCount] = React.useState(getConfig().INITIAL_MOVIES_COUNT);
+  const [moviesPerRow, setMoviesPerRow] = React.useState(getConfig().MOVIES_COUNT_INCREMENT);
+
+  const totslFilmsCountRef = React.useRef({totalFilmsCount, moviesPerRow});
+  React.useEffect(() => {
+    totslFilmsCountRef.current = {totalFilmsCount, moviesPerRow};
+  }, [totalFilmsCount, moviesPerRow]);
+
+    // ? подписываем App на событие resize
+    React.useEffect(() => {
+      window.addEventListener("resize", handleResize);
+  
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      }
+  
+      function handleResize() {
+        const config = getConfig();
+
+        const nextTotalCount = Math.ceil(totslFilmsCountRef.current.totalFilmsCount / config.MOVIES_COUNT_INCREMENT) * config.MOVIES_COUNT_INCREMENT;
+        
+        console.log(nextTotalCount, config.MOVIES_COUNT_INCREMENT);
+        if (totslFilmsCountRef.current.moviesPerRow !== nextTotalCount) {
+          setMoviesPerRow(config.MOVIES_COUNT_INCREMENT);
+          setTotalFilmsCount(nextTotalCount);
+        }
+        
+      }
+    }, []);
 
   // ? реализация загрузки фильмов из общей базы
   // ? на стейт-переменных
@@ -189,8 +214,6 @@ function App() {
   // ? значение wantedFilm при первом рендере берется из локал стореджа
   const [wantedFilm, setWantedFilm] = React.useState(localStorage.getItem('filmRequest'));
 
-  const [additionalFilmsCount, setAdditionalFilmsCount] = React.useState(0);
-  
   // ? присваиваем стейту wantedFilm значение из инпута и сохраняем этот стейт в локалсторедж
   const handleFilmSearchChange = (evt) => {
     setWantedFilm(evt.target.value);
@@ -220,14 +243,14 @@ function App() {
 
   // ? написать коммент
   const handleAddMovies = () => {
-    setAdditionalFilmsCount((previousAdditionalFilmsCount) => previousAdditionalFilmsCount + config.MOVIES_COUNT_INCREMENT);
+    setTotalFilmsCount((previousAdditionalFilmsCount) => previousAdditionalFilmsCount + moviesPerRow);
   }
 
   // ? в эту переменную складывается результат работы функции filterMovies при каждом изменении любой из dependencies
-  const filteredMoviesList = React.useMemo(() => filterMovies(moviesList, wantedFilm), [moviesList, wantedFilm]);
+  const filteredMoviesList = filterMovies(moviesList, wantedFilm);
 
   // ? написать коммент
-  const preparedMoviesList = React.useMemo(() => filteredMoviesList.slice(0, config.INITIAL_MOVIES_COUNT + additionalFilmsCount), [filteredMoviesList, additionalFilmsCount, config.INITIAL_MOVIES_COUNT]);
+  const preparedMoviesList = React.useMemo(() => filteredMoviesList.slice(0, totalFilmsCount), [filteredMoviesList, totalFilmsCount]);
 
   // ? написать коммент
   const hasAdditionalFilms = filteredMoviesList.length > 12;
@@ -256,12 +279,66 @@ function App() {
     setMoviesError('');
   }
 
-    // ? флажок, показывающий, сохранен ли фильм в нашу базу
-    const [isFilmSaved, setIsFilmSaved] = React.useState(false);
+  // ! РАБОТА С БАЗОЙ СОХРАНЕННЫХ ФИЛЬМОВ
 
-    const saveFilm = () => {
-      setIsFilmSaved(!isFilmSaved);
-    }
+  // const [savedMoviesList, setSavedMoviesList] = React.useState([]);
+
+  // React.useEffect(() => {
+  //   const getSavedMovies = async () => {
+  //     const list = await mainApi.getInitialSavedMovies();
+  //     console.log(list);
+  //     setSavedMoviesList(list);
+  //   }
+
+  //   getSavedMovies();
+  // }, []);
+
+  // ? сохраняем айдишник нужного фильма в стейт
+  const [movieID, setMovieID] = React.useState('');
+
+  const getMovieID = (id) => {
+    setMovieID(id);
+  }
+
+  // ? фильтруем массив фильмов по айдишнику. получаем выбранный фильм
+  const getOneMovie = (movieID) => {
+    const oneMovie = preparedMoviesList.filter(movie => movie.id === movieID);
+    return oneMovie;
+  }
+
+  // ? а тут хранится выбранный фильм
+  const oneMovie = React.useMemo(() => getOneMovie(movieID), [movieID]);
+
+  // ? список сохраненок
+  const [savedMoviesList, setSavedMoviesList] = React.useState([]);
+
+  const saveFilmToTheBase = (id) => {
+    const oneMovie = moviesList.filter(movie => movie.id === id);
+    const image = oneMovie[0].image;
+    const movieId = oneMovie[0].id;
+    const trailer = oneMovie[0].trailerLink;
+    delete oneMovie[0].id;
+    delete oneMovie[0]['created_at'];
+    delete oneMovie[0]['updated_at'];
+    delete oneMovie[0].trailerLink;
+    const chosenMovie = {
+      ...oneMovie[0],
+      movieId,
+      image: `${BASE_URL}${image.url}`,
+      thumbnail: `${BASE_URL}${image.formats.thumbnail.url}`,
+      trailer
+    };
+    console.log(chosenMovie);
+    mainApi.saveMovie(chosenMovie);
+  }
+
+  const deleteFilmFromTheBase = async (id) => {
+    await mainApi.deleteMovie(id);
+    const moviesWithoutTheDeletedFilm = savedMoviesList.filter(movie => movie.movieId !== id);
+    setSavedMoviesList(moviesWithoutTheDeletedFilm);
+  }
+  
+  // ! ДОПОЛНИТЕЛЬНЫЙ ФУНКЦИОНАЛ: ОТКРЫТИЕ И ЗАКРЫТИЕ МЕНЮ, ВЫБОР ЦВЕТОВОЙ ТЕМЫ
 
   // ? реализация работы всплывающего меню-бургера на малых разрешениях
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -292,8 +369,6 @@ function App() {
             </Route>
             <Route path="/movies">
               <Movies
-                saveFilm={saveFilm}
-                isFilmSaved={isFilmSaved}
                 moviesList={moviesList}
                 moviesError={moviesError}
                 eraseMoviesError={eraseMoviesError}
@@ -307,10 +382,15 @@ function App() {
                 handleAddMovies={handleAddMovies}
                 preparedMoviesList={preparedMoviesList}
                 hasAdditionalFilms={hasAdditionalFilms}
+                getMovieID={saveFilmToTheBase}
               />
             </Route>
             <Route path="/saved-movies">
-              <SavedMovies />
+              <SavedMovies
+                deleteFilmFromTheBase={deleteFilmFromTheBase}
+                savedMoviesList={savedMoviesList}
+                setSavedMoviesList={setSavedMoviesList}
+              />
             </Route>
             <Route path="/profile">
               <Profile
@@ -355,3 +435,12 @@ function App() {
 }
 
 export default App;
+
+function getConfig() {
+  if (window.matchMedia("(max-width: 480px)").matches) {
+    return configMobile;
+  } if (window.matchMedia("(max-width: 768px)").matches) {
+      return configTablet;
+    }
+      return configDesktop;
+}

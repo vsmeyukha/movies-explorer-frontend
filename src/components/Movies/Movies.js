@@ -46,7 +46,9 @@ function Movies(props) {
           eraseMoviesError={props.eraseMoviesError}
         />
       }
-      <MoviesCardList
+      {!isLoading &&
+        <>
+        <MoviesCardList
         saveFilm={props.saveFilm}
         isFilmSaved={props.isFilmSaved}
         moviesList={props.moviesList}
@@ -55,6 +57,7 @@ function Movies(props) {
         filteredShortMoviesList={props.filteredShortMoviesList}
         shortFilms={props.shortFilms}
         preparedMoviesList={props.preparedMoviesList}
+        getMovieID={props.getMovieID}
       />
       {props.hasAdditionalFilms &&
       <MoreFilmsButton
@@ -62,6 +65,11 @@ function Movies(props) {
         handleAddMovies={props.handleAddMovies}
       />
       }
+        </>
+        
+        
+      }
+      
     </>
   );
 };

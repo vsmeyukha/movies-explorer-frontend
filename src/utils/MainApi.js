@@ -7,6 +7,8 @@ function _checkResponse(res) {
   return Promise.reject(`Ошибка: ${res.status}`);
 }
 
+// ! РАБОТА С ЮЗЕРОМ
+
 export const register = (email, password, name) => {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
@@ -62,6 +64,41 @@ export const signOut = () => {
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
+    }
+  })
+  .then(_checkResponse);
+}
+
+// ! РАБОТА С СОХРАНЕННЫМИ ФИЛЬМАМИ
+
+export const getInitialSavedMovies = () => {
+  return fetch(`${BASE_URL}/movies`, {
+    method: 'GET',
+    credentials: 'include',
+  })
+  .then(_checkResponse);
+}
+
+export const saveMovie = (film) => {
+  return fetch(`${BASE_URL}/movies`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(film)
+  })
+  .then(_checkResponse);
+}
+
+export const deleteMovie = (movieId) => {
+  return fetch(`${BASE_URL}/movies/${movieId}`, {
+    method: 'DELETE',
+    credentials: 'include',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
     }
   })
   .then(_checkResponse);

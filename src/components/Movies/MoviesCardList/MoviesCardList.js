@@ -8,11 +8,14 @@ function MoviesCardList(props) {
   const renderCard = movie => (
     <MoviesCard
       key={movie.id}
+      identificator={movie.id}
       title={movie.nameRU}
       time={movie.duration}
       imgSrc={`${BASE_URL}${movie.image.url}`}
       saveFilm={props.saveFilm}
       isFilmSaved={props.isFilmSaved}
+      getMovieID={props.getMovieID}
+      movie={movie}
     />
   )
 
