@@ -1,10 +1,12 @@
 export const BASE_URL = 'http://localhost:3000';
 
-function _checkResponse(res) {
+async function _checkResponse(res) {
+  const awaitRes = await res.json();
+
   if (res.ok) {
-    return res.json();
+    return awaitRes;
   }
-  return Promise.reject(`Ошибка: ${res.status}`);
+  return Promise.reject(awaitRes);
 }
 
 // ! РАБОТА С ЮЗЕРОМ

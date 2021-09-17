@@ -23,3 +23,8 @@
   background-color: #202020;
   color: white;
 }
+
+.profile__edit-button:disabled {
+  color: grey;
+  cursor: default;
+}

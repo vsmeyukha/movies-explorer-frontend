@@ -1,0 +1,9 @@
+.popup__message-container {
+  background-color: #fff;
+  border-radius: 30px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

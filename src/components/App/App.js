@@ -1,6 +1,6 @@
 // ? импортируем инфраструктуру
 import React from 'react';
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 
 // ? импортируем компоненты
 import './App.css';
@@ -15,6 +15,8 @@ import Register from '../Register/Register';
 import Profile from '../Profile/Profile';
 import MenuPopup from '../MenuPopup/MenuPopup';
 import PageNotFound from '../PageNotFound/PageNotFound';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import Popup from '../Popup/Popup';
 
 // ? импортируем контексты
 import ThemeContext from '../../contexts/ThemeContext';
@@ -77,6 +79,28 @@ function App() {
     setName(evt.target.value);
   }
 
+  // ? создаем стейт ошибки
+  const [errorHappened, setErrorHappened] = React.useState(false);
+  const [errorText, setErrorText] = React.useState('');
+
+  const deleteError = () => {
+    setErrorHappened(false);
+  }
+
+  // ? функция для вывода текста ошибки, которая будет переиспользоваться во всех catch
+  const setErrMessage = (err) => {
+    let errMessage;
+    if (err.validation) {
+      errMessage = err.validation.body.message;
+    } else
+      if (err.message) {
+        errMessage = err.message;
+      } else {
+        errMessage = err;
+      }
+    setErrorText(errMessage);
+  }
+
   // ? регистрация в приложении
   function handleRegistration(email, password, name) {
     mainApi.register(email, password, name)
@@ -90,6 +114,8 @@ function App() {
     })
     .catch((err) => {
       console.error(err);
+      setErrMessage(err);
+      setErrorHappened(true);
     });
   }
 
@@ -106,9 +132,14 @@ function App() {
     mainApi.authorize(email, password)
       .then((res) => {
         handleLogin();
+        setCurrentUser(res.user);
         history.push('/movies');
       })
-      .catch(err => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        setErrMessage(err);
+        setErrorHappened(true);
+      });
   }
 
   // ? функция обновления данных профиля
@@ -119,19 +150,31 @@ function App() {
       .then(data => {
         setCurrentUser(data.user);
       })
-      .catch(err => console.error(`Ошибка при редактировании данных профиля: ${err}`));
+      .catch((err) => {
+        setErrMessage(err);
+        setErrorHappened(true);
+        console.error(`Ошибка при редактировании данных профиля: ${err}`);
+
+      });
   }
 
   // ? функция разлогина => отправляем запрос к АПИ, который удаляет jwt-токен из кук. меняем флажок логина на false и перебрасываем пользователя на главную страницу, не требующую авторизации
   function signOut() {
+    localStorage.setItem('filmRequest', ''); // ? разобраться, почему не работает очистка стореджа при разлогине
     mainApi.signOut()
       .then((data) => {
         console.log(data);
         setIsLoggedIn(false);
         history.push('/');
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        setErrMessage(err);
+        setErrorHappened(true);
+      });
   }
+
+  const location = useLocation();
 
   // ? остается написать эффект, обращающийся к АПИ за значениями юзера, чтобы записать их в контекст юзера
   React.useEffect(() => {
@@ -143,8 +186,9 @@ function App() {
           handleLogin();
 
           setCurrentUser(data);
-          
-          history.push('/movies');
+          if (location.pathname === '/') {
+            history.push('/movies');
+          }
         } else {
           console.log('не пришли данные о юзере');
         }
@@ -152,7 +196,7 @@ function App() {
       .catch(err => console.error(err));
     };
 
-    // вызывать токенчек только когда пользоваетль не залогинен 
+    // ? вызывать токенчек только когда пользоваетль не залогинен 
     if (!isLoggedIn) {
       authForTheFirstTime();
     } return;
@@ -203,9 +247,9 @@ function App() {
     try {
       const movies = await moviesApi.getMovies();
       setMoviesList(movies);
-    } catch (e) {
-      console.log(e);
-      setMoviesError(e.message);
+    } catch (err) {
+      console.log(err);
+      setMoviesError(err.message);
     }
   }
 
@@ -225,17 +269,14 @@ function App() {
   // ? return не работает тоже
   const handleShortFilmsSearch = () => {
     setShortFilms(!shortFilms);
+    console.log(shortFilms);
     return shortFilms;
   }
 
-  const tryToSearch = () => {
-    handleShortFilmsSearch();
-  }
-
   // ? фильтрация первично полученного массива
-  const filterMovies = (moviesList, wantedFilm) => {
+  const filterMovies = (arr, wantedFilm) => {
     return (
-      moviesList.filter(movie =>
+      arr.filter(movie =>
         movie.nameRU.toLowerCase().includes(wantedFilm.toLowerCase())
       )
     );
@@ -256,8 +297,8 @@ function App() {
   const hasAdditionalFilms = filteredMoviesList.length > 12;
 
   // ? формируем список короткометражек
-  const filterShortMovies = (filteredMoviesList) => {
-    return filteredMoviesList.filter(movie => movie.duration <= 40);
+  const filterShortMovies = (arr) => {
+    return arr.filter(movie => movie.duration <= 40);
   }
 
   // ? написать коммент
@@ -266,7 +307,7 @@ function App() {
   // ? вызывается функция saveFilmRequestToLocalStorage и соответственно сохраняется в локал сторедж значение стейта wantedFilm при каждом изменении зависимости
   React.useMemo(() => saveFilmRequestToLocalStorage(wantedFilm), [wantedFilm]);
 
-  // ? сохраняем отфильтрованный массив в LocalStorage
+  // ? сохраняем value инпута поиска фильмов в LocalStorage
   function saveFilmRequestToLocalStorage(wantedFilm) {
     const moviesFromTheStorage = localStorage.setItem('filmRequest', wantedFilm);
     return moviesFromTheStorage;
@@ -280,18 +321,6 @@ function App() {
   }
 
   // ! РАБОТА С БАЗОЙ СОХРАНЕННЫХ ФИЛЬМОВ
-
-  // const [savedMoviesList, setSavedMoviesList] = React.useState([]);
-
-  // React.useEffect(() => {
-  //   const getSavedMovies = async () => {
-  //     const list = await mainApi.getInitialSavedMovies();
-  //     console.log(list);
-  //     setSavedMoviesList(list);
-  //   }
-
-  //   getSavedMovies();
-  // }, []);
 
   // ? сохраняем айдишник нужного фильма в стейт
   const [movieID, setMovieID] = React.useState('');
@@ -312,7 +341,7 @@ function App() {
   // ? список сохраненок
   const [savedMoviesList, setSavedMoviesList] = React.useState([]);
 
-  const saveFilmToTheBase = (id) => {
+  const saveFilmToTheBase = async (id) => {
     const oneMovie = moviesList.filter(movie => movie.id === id);
     const image = oneMovie[0].image;
     const movieId = oneMovie[0].id;
@@ -329,13 +358,24 @@ function App() {
       trailer
     };
     console.log(chosenMovie);
-    mainApi.saveMovie(chosenMovie);
+
+    try {
+      await mainApi.saveMovie(chosenMovie);
+    } catch (err) {
+      setErrMessage(err);
+      setErrorHappened(true);
+    }
   }
 
   const deleteFilmFromTheBase = async (id) => {
-    await mainApi.deleteMovie(id);
-    const moviesWithoutTheDeletedFilm = savedMoviesList.filter(movie => movie.movieId !== id);
-    setSavedMoviesList(moviesWithoutTheDeletedFilm);
+    try {
+      await mainApi.deleteMovie(id);
+      const moviesWithoutTheDeletedFilm = savedMoviesList.filter(movie => movie.movieId !== id);
+      setSavedMoviesList(moviesWithoutTheDeletedFilm);
+    } catch (err) {
+      setErrMessage(err);
+      setErrorHappened(true);
+    }
   }
   
   // ! ДОПОЛНИТЕЛЬНЫЙ ФУНКЦИОНАЛ: ОТКРЫТИЕ И ЗАКРЫТИЕ МЕНЮ, ВЫБОР ЦВЕТОВОЙ ТЕМЫ
@@ -360,48 +400,72 @@ function App() {
 
   return (
     <ThemeContext.Provider value={day} >
+
       <CurrentUserContext.Provider value={currentUser} >
+
         <div className={`page ${!day && `page_black`}`}>
-          <Header onMenuClick={handleMenuOpenClick} changeTheme={changeTheme}/>
+
+          <Header onMenuClick={handleMenuOpenClick} changeTheme={changeTheme} />
+          
           <Switch>
+
             <Route exact path="/">
               <Main />
             </Route>
-            <Route path="/movies">
-              <Movies
-                moviesList={moviesList}
-                moviesError={moviesError}
-                eraseMoviesError={eraseMoviesError}
-                wantedFilm={wantedFilm}
-                handleFilmSearchChange={handleFilmSearchChange}
-                filteredMoviesList={filteredMoviesList}
-                getMoviesList={getMoviesList}
-                handleShortFilmsSearch={tryToSearch}
-                shortFilms={shortFilms}
-                filteredShortMoviesList={filteredShortMoviesList}
-                handleAddMovies={handleAddMovies}
-                preparedMoviesList={preparedMoviesList}
-                hasAdditionalFilms={hasAdditionalFilms}
-                getMovieID={saveFilmToTheBase}
-              />
-            </Route>
-            <Route path="/saved-movies">
-              <SavedMovies
-                deleteFilmFromTheBase={deleteFilmFromTheBase}
-                savedMoviesList={savedMoviesList}
-                setSavedMoviesList={setSavedMoviesList}
-              />
-            </Route>
-            <Route path="/profile">
-              <Profile
-                handleUpdateUser={handleUpdateUser}
-                name={name}
-                email={email}
-                handleEmailChange={handleEmailChange}
-                handleNameChange={handleNameChange}
-                signOut={signOut}
-              />
-            </Route>
+
+            <ProtectedRoute
+              path="/movies"
+              isLoggedIn={isLoggedIn}
+              component={Movies}
+
+              // ? далее пропсы компонента Movies
+              moviesList={moviesList}
+              moviesError={moviesError}
+              eraseMoviesError={eraseMoviesError}
+              wantedFilm={wantedFilm}
+              handleFilmSearchChange={handleFilmSearchChange}
+              filteredMoviesList={filteredMoviesList}
+              getMoviesList={getMoviesList}
+              handleShortFilmsSearch={handleShortFilmsSearch}
+              shortFilms={shortFilms}
+              filteredShortMoviesList={filteredShortMoviesList}
+              handleAddMovies={handleAddMovies}
+              preparedMoviesList={preparedMoviesList}
+              hasAdditionalFilms={hasAdditionalFilms}
+              getMovieID={saveFilmToTheBase}
+            />
+
+            <ProtectedRoute
+              path="/saved-movies"
+              isLoggedIn={isLoggedIn}
+              component={SavedMovies}
+
+              // ? далее пропсы компонента SavedMovies
+              deleteFilmFromTheBase={deleteFilmFromTheBase}
+              savedMoviesList={savedMoviesList}
+              setSavedMoviesList={setSavedMoviesList}
+              shortFilms={shortFilms}
+              handleShortFilmsSearch={handleShortFilmsSearch}
+              filterShortMovies={filterShortMovies}
+              wantedFilm={wantedFilm}
+              handleFilmSearchChange={handleFilmSearchChange}
+              filterMovies={filterMovies}
+            />
+
+            <ProtectedRoute
+              path="/profile"
+              isLoggedIn={isLoggedIn}
+              component={Profile}
+
+              // ? далее пропсы компонента Profile
+              handleUpdateUser={handleUpdateUser}
+              name={name}
+              email={email}
+              handleEmailChange={handleEmailChange}
+              handleNameChange={handleNameChange}
+              signOut={signOut}
+            />
+
             <Route path="/signin">
               <SignIn
                 handleAuthorization={handleAuthorization}
@@ -411,6 +475,7 @@ function App() {
                 handlePasswordChange={handlePasswordChange}
               />
             </Route>
+
             <Route path="/signup">
               <Register
                 handleRegistration={handleRegistration}
@@ -420,16 +485,27 @@ function App() {
                 handleEmailChange={handleEmailChange}
                 handlePasswordChange={handlePasswordChange}
                 handleNameChange={handleNameChange}
+                errorHappened={errorHappened}
+                errorText={errorText}
+                deleteError={deleteError}
               />
             </Route>
+
             <Route path="*">
               <PageNotFound />
             </Route>
           </Switch>
+
           <Footer />
-          <MenuPopup isOpen={isMenuOpen} onClose={closeMenu}/>
+
+          <MenuPopup isOpen={isMenuOpen} onClose={closeMenu} />
+
+          {errorHappened && <Popup errorText={errorText} onButtonClick={deleteError} errorHappened={errorHappened} />}
+          
         </div>
+
       </CurrentUserContext.Provider>
+
     </ThemeContext.Provider>
   )
 }

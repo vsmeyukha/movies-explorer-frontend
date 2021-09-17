@@ -1,20 +1,8 @@
 import React from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import { BASE_URL } from '../../../utils/consts';
-import * as mainApi from '../../../utils/MainApi';
 
 function MoviesCardList(props) {
-
-
-  React.useEffect(() => {
-    const getSavedMovies = async () => {
-      const list = await mainApi.getInitialSavedMovies();
-      console.log(list);
-      props.setSavedMoviesList(list);
-    }
-
-    getSavedMovies();
-  }, []);
 
   // ? отрисовка карточки
   const renderCard = movie => (
@@ -27,12 +15,35 @@ function MoviesCardList(props) {
       isFilmSaved={props.isFilmSaved}
       identificator={movie.movieId}
       deleteFilmFromTheBase={props.deleteFilmFromTheBase}
+      trailer={movie.trailer}
     />
   )
 
+  // ? отрисовка "Вы еще не сохранили ни одного фильма"
+  const renderNoSavedFilms = () => {
+    return (
+      <section className="movies-card-list__nothing-found-container">
+        <h2 className="movies-card-list__nothing-found-title">!</h2>
+        <h3 className="movies-card-list__nothing-found-text">Вы еще не сохранили ни одного фильма</h3>
+      </section>
+    )
+  }
+
+  const renderCardList = arr => arr.map(movie => renderCard(movie));
+
   return (
     <section className="movies-card-list">
-      {props.savedMoviesList.map(movie => renderCard(movie))}
+      {props.savedMoviesList.length === 0
+        ?
+        renderNoSavedFilms()
+        :
+        props.shortFilms
+          ?
+          renderCardList(props.onlyShortSavedMovies)
+          :
+          renderCardList(props.savedMoviesList)
+        
+      }
     </section>
   );
 };

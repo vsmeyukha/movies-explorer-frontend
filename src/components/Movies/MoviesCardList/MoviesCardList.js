@@ -10,12 +10,13 @@ function MoviesCardList(props) {
       key={movie.id}
       identificator={movie.id}
       title={movie.nameRU}
-      time={movie.duration}
+      duration={movie.duration}
       imgSrc={`${BASE_URL}${movie.image.url}`}
       saveFilm={props.saveFilm}
       isFilmSaved={props.isFilmSaved}
       getMovieID={props.getMovieID}
       movie={movie}
+      trailer={movie.trailerLink}
     />
   )
 
