@@ -1,11 +1,27 @@
 import React from 'react';
+import CurrentUserContext from '../../../contexts/CurrentUserContext';
 import * as duration from '../../../utils/duration';
 
 function MoviesCard(props) {
+  const thisUser = React.useContext(CurrentUserContext);
+
   const likeClassName = (`movies-card__like ${props.isFilmSaved && `movies-card__like_active`}`);
 
-  const getMovie = () => {
-    props.getMovieID(props.identificator);
+  const getMovie = async () => {
+    if (props.identificator === undefined) debugger;
+      await props.saveFilmToTheBase(props.identificator);
+    
+      // props.getMoviesList();
+  }
+
+  const deleteMovie = () => {
+    if (props.identificator === undefined) debugger;
+      props.deleteFilmFromTheBase(props.identificator);
+      // props.getMoviesList();
+  }
+
+  const handleButtonClick = () => {
+    props.isFilmSaved ? deleteMovie() : getMovie()
   }
 
   const hours = duration.getHours(props.duration);
@@ -23,7 +39,7 @@ function MoviesCard(props) {
       <a href={props.movie.trailerLink} target="_blank" rel="noreferrer">
       <img src={props.imgSrc} className="movies-card__photo" alt={props.title}></img>
       </a>
-      <button className={likeClassName} type="button" onClick={getMovie}>
+      <button className={likeClassName} type="button" onClick={handleButtonClick}>
         {!props.isFilmSaved
           ?
           (<p className="movies-card__like-text">Сохранить</p>)

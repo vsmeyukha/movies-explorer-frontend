@@ -4,6 +4,7 @@ import MoviesCardList from './MoviesCardList/MoviesCardList';
 import * as mainApi from '../../utils/MainApi';
 
 function SavedMovies(props) {
+
   React.useEffect(() => {
     const getSavedMovies = async () => {
       const list = await mainApi.getInitialSavedMovies();

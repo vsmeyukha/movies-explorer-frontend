@@ -7,16 +7,22 @@ function MoviesCardList(props) {
   // ? отрисовка карточки
   const renderCard = movie => (
     <MoviesCard
-      key={movie.id}
+      key={`movie${movie.id}`}
       identificator={movie.id}
       title={movie.nameRU}
       duration={movie.duration}
       imgSrc={`${BASE_URL}${movie.image.url}`}
       saveFilm={props.saveFilm}
-      isFilmSaved={props.isFilmSaved}
-      getMovieID={props.getMovieID}
+      saveFilmToTheBase={props.saveFilmToTheBase}
       movie={movie}
       trailer={movie.trailerLink}
+      isFilmSaved={props.savedMoviesList.some((film) => {
+        return film.movieId === movie.id;
+      })}
+      deleteFilmFromTheBase={props.deleteFilmFromTheBase}
+      getMoviesList={props.getMoviesList}
+      setErrMessage={props.setErrMessage}
+      setErrorHappened={props.setErrorHappened}
     />
   )
 

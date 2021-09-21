@@ -46,30 +46,34 @@ function Movies(props) {
           eraseMoviesError={props.eraseMoviesError}
         />
       }
-      {!isLoading &&
+      {!isLoading
+        &&
         <>
-        <MoviesCardList
-        saveFilm={props.saveFilm}
-        isFilmSaved={props.isFilmSaved}
-        moviesList={props.moviesList}
-        wantedFilm={props.wantedFilm}
-        filteredMoviesList={props.filteredMoviesList}
-        filteredShortMoviesList={props.filteredShortMoviesList}
-        shortFilms={props.shortFilms}
-        preparedMoviesList={props.preparedMoviesList}
-        getMovieID={props.getMovieID}
-      />
-      {props.hasAdditionalFilms &&
-      <MoreFilmsButton
-        handleShowMoreMovies={props.handleShowMoreMovies}
-        handleAddMovies={props.handleAddMovies}
-      />
-      }
+          <MoviesCardList
+            saveFilm={props.saveFilm}
+            moviesList={props.moviesList}
+            wantedFilm={props.wantedFilm}
+            filteredMoviesList={props.filteredMoviesList}
+            filteredShortMoviesList={props.filteredShortMoviesList}
+            shortFilms={props.shortFilms}
+            preparedMoviesList={props.preparedMoviesList}
+            saveFilmToTheBase={props.saveFilmToTheBase}
+          savedMoviesList={props.savedMoviesList}
+          deleteFilmFromTheBase={props.deleteFilmFromTheBase}
+          getMoviesList={props.getMoviesList}
+          isFilmSaved={props.isFilmSaved}
+          setErrMessage={props.setErrMessage}
+          setErrorHappened={props.setErrorHappened}
+          />
+          {props.hasAdditionalFilms
+            &&
+            <MoreFilmsButton
+              handleShowMoreMovies={props.handleShowMoreMovies}
+              handleAddMovies={props.handleAddMovies}
+            />
+          }
         </>
-        
-        
       }
-      
     </>
   );
 };

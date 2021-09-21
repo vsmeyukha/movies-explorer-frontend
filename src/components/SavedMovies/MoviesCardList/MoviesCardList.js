@@ -12,7 +12,6 @@ function MoviesCardList(props) {
       time={movie.duration}
       imgSrc={movie.image}
       saveFilm={props.saveFilm}
-      isFilmSaved={props.isFilmSaved}
       identificator={movie.movieId}
       deleteFilmFromTheBase={props.deleteFilmFromTheBase}
       trailer={movie.trailer}

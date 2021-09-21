@@ -1,6 +1,7 @@
 // ? импортируем инфраструктуру
 import React from 'react';
 import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
+import omit from 'lodash/omit';
 
 // ? импортируем компоненты
 import './App.css';
@@ -90,14 +91,19 @@ function App() {
   // ? функция для вывода текста ошибки, которая будет переиспользоваться во всех catch
   const setErrMessage = (err) => {
     let errMessage;
-    if (err.validation) {
-      errMessage = err.validation.body.message;
+    if (err.message) {
+      errMessage = err.message;
     } else
-      if (err.message) {
-        errMessage = err.message;
-      } else {
-        errMessage = err;
-      }
+      if (err.validation.body) {
+        errMessage = err.validation.body.message;
+      } else
+        if (err.validation.params) {
+          errMessage = err.validation.params.message;
+        } else
+          {
+            errMessage = err;
+          }
+    
     setErrorText(errMessage);
   }
 
@@ -107,7 +113,7 @@ function App() {
     .then((res) => {
       if (res) {
         console.log(res);
-        history.push('/signin');
+        handleAuthorization(email, password);
       } else {
         return;
       }
@@ -341,31 +347,60 @@ function App() {
   // ? список сохраненок
   const [savedMoviesList, setSavedMoviesList] = React.useState([]);
 
+  React.useEffect(() => {
+    const getSavedMovies = async () => {
+      const list = await mainApi.getInitialSavedMovies();
+      setSavedMoviesList(list);
+    }
+
+    getSavedMovies();
+  }, []);
+
   const saveFilmToTheBase = async (id) => {
-    const oneMovie = moviesList.filter(movie => movie.id === id);
-    const image = oneMovie[0].image;
-    const movieId = oneMovie[0].id;
-    const trailer = oneMovie[0].trailerLink;
-    delete oneMovie[0].id;
-    delete oneMovie[0]['created_at'];
-    delete oneMovie[0]['updated_at'];
-    delete oneMovie[0].trailerLink;
-    const chosenMovie = {
-      ...oneMovie[0],
-      movieId,
-      image: `${BASE_URL}${image.url}`,
-      thumbnail: `${BASE_URL}${image.formats.thumbnail.url}`,
-      trailer
-    };
-    console.log(chosenMovie);
+    const oneMovie = moviesList.find(movie => movie.id === id);
+    const chosenMovie = omit(oneMovie, ['id', 'created_at', 'updated_at', 'trailerLink']);
+    chosenMovie.image = `${BASE_URL}${oneMovie.image.url}`;
+    chosenMovie.movieId = oneMovie.id;
+    chosenMovie.trailer = oneMovie.trailerLink;
+    chosenMovie.thumbnail = `${BASE_URL}${oneMovie.image.formats.thumbnail.url}`
+    // const chosenMovie = {
+    //   ...oneMovie,
+    //   movieId,
+    //   image: `${BASE_URL}${image.url}`,
+    //   thumbnail: `${BASE_URL}${image.formats.thumbnail.url}`,
+    //   trailer
+    // };
+    // console.log(chosenMovie);
 
     try {
       await mainApi.saveMovie(chosenMovie);
+      setSavedMoviesList([...savedMoviesList, chosenMovie]);
     } catch (err) {
+      console.log(err);
       setErrMessage(err);
       setErrorHappened(true);
     }
   }
+
+  // const saveFilmToTheBase = (id) => {
+  //   const oneMovie = moviesList.filter(movie => movie.id === id);
+  //   const image = oneMovie[0].image;
+  //   const movieId = oneMovie[0].id;
+  //   const trailer = oneMovie[0].trailerLink;
+  //   delete oneMovie[0].id;
+  //   delete oneMovie[0]['created_at'];
+  //   delete oneMovie[0]['updated_at'];
+  //   delete oneMovie[0].trailerLink;
+  //   const chosenMovie = {
+  //     ...oneMovie[0],
+  //     movieId,
+  //     image: `${BASE_URL}${image.url}`,
+  //     thumbnail: `${BASE_URL}${image.formats.thumbnail.url}`,
+  //     trailer
+  //   };
+  //   console.log(chosenMovie);
+  //   mainApi.saveMovie(chosenMovie);
+  // }
 
   const deleteFilmFromTheBase = async (id) => {
     try {
@@ -377,6 +412,12 @@ function App() {
       setErrorHappened(true);
     }
   }
+
+  // const deleteFilmFromTheBase = async (id) => {
+  //     await mainApi.deleteMovie(id);
+  //     const moviesWithoutTheDeletedFilm = savedMoviesList.filter(movie => movie.movieId !== id);
+  //     setSavedMoviesList(moviesWithoutTheDeletedFilm);
+  // }
   
   // ! ДОПОЛНИТЕЛЬНЫЙ ФУНКЦИОНАЛ: ОТКРЫТИЕ И ЗАКРЫТИЕ МЕНЮ, ВЫБОР ЦВЕТОВОЙ ТЕМЫ
 
@@ -432,7 +473,11 @@ function App() {
               handleAddMovies={handleAddMovies}
               preparedMoviesList={preparedMoviesList}
               hasAdditionalFilms={hasAdditionalFilms}
-              getMovieID={saveFilmToTheBase}
+              saveFilmToTheBase={saveFilmToTheBase}
+              savedMoviesList={savedMoviesList}
+              deleteFilmFromTheBase={deleteFilmFromTheBase}
+              setErrMessage={setErrMessage}
+              setErrorHappened={setErrorHappened}
             />
 
             <ProtectedRoute
