@@ -91,18 +91,20 @@ function App() {
   // ? функция для вывода текста ошибки, которая будет переиспользоваться во всех catch
   const setErrMessage = (err) => {
     let errMessage;
-    if (err.message) {
-      errMessage = err.message;
-    } else
+    if (err.validation) {
       if (err.validation.body) {
         errMessage = err.validation.body.message;
       } else
         if (err.validation.params) {
           errMessage = err.validation.params.message;
-        } else
-          {
-            errMessage = err;
-          }
+        }
+    } else
+      if (err.message) {
+        errMessage = err.message;
+      } else
+        {
+          errMessage = err;
+      }
     
     setErrorText(errMessage);
   }
@@ -126,7 +128,7 @@ function App() {
   }
 
   // ? стейт логина
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(null);
 
   // ? меняем флажок логина
   const handleLogin = () => {
@@ -166,7 +168,9 @@ function App() {
 
   // ? функция разлогина => отправляем запрос к АПИ, который удаляет jwt-токен из кук. меняем флажок логина на false и перебрасываем пользователя на главную страницу, не требующую авторизации
   function signOut() {
-    localStorage.setItem('filmRequest', ''); // ? разобраться, почему не работает очистка стореджа при разлогине
+    setWantedFilm('');
+    // localStorage.setItem('filmRequest', '');
+    // ? разобраться, почему не работает очистка стореджа при разлогине. работает только очистка wantedFilm
     mainApi.signOut()
       .then((data) => {
         console.log(data);
@@ -188,9 +192,8 @@ function App() {
       mainApi.getUserData()
       .then((data) => {
         if (data) {
-
+          console.log(data);
           handleLogin();
-
           setCurrentUser(data);
           if (location.pathname === '/') {
             history.push('/movies');
@@ -199,14 +202,17 @@ function App() {
           console.log('не пришли данные о юзере');
         }
       })
-      .catch(err => console.error(err));
+        .catch((err) => {
+          console.error(err);
+          setIsLoggedIn(false);
+      });
     };
 
     // ? вызывать токенчек только когда пользоваетль не залогинен 
     if (!isLoggedIn) {
       authForTheFirstTime();
     } return;
-  }, [isLoggedIn, history]);
+  }, [isLoggedIn, history, location.pathname]);
 
   // ! РАБОТА С ОБЩЕЙ БАЗОЙ ФИЛЬМОВ: ОТОБРАЖЕНИЕ, ПОИСК, ФИЛЬТРАЦИЯ
 
@@ -351,10 +357,12 @@ function App() {
     const getSavedMovies = async () => {
       const list = await mainApi.getInitialSavedMovies();
       setSavedMoviesList(list);
+      console.log('hhh');
     }
-
-    getSavedMovies();
-  }, []);
+    if (isLoggedIn) {
+      getSavedMovies();
+    }
+  }, [isLoggedIn]);
 
   const saveFilmToTheBase = async (id) => {
     const oneMovie = moviesList.find(movie => movie.id === id);
@@ -363,14 +371,6 @@ function App() {
     chosenMovie.movieId = oneMovie.id;
     chosenMovie.trailer = oneMovie.trailerLink;
     chosenMovie.thumbnail = `${BASE_URL}${oneMovie.image.formats.thumbnail.url}`
-    // const chosenMovie = {
-    //   ...oneMovie,
-    //   movieId,
-    //   image: `${BASE_URL}${image.url}`,
-    //   thumbnail: `${BASE_URL}${image.formats.thumbnail.url}`,
-    //   trailer
-    // };
-    // console.log(chosenMovie);
 
     try {
       await mainApi.saveMovie(chosenMovie);
@@ -381,26 +381,6 @@ function App() {
       setErrorHappened(true);
     }
   }
-
-  // const saveFilmToTheBase = (id) => {
-  //   const oneMovie = moviesList.filter(movie => movie.id === id);
-  //   const image = oneMovie[0].image;
-  //   const movieId = oneMovie[0].id;
-  //   const trailer = oneMovie[0].trailerLink;
-  //   delete oneMovie[0].id;
-  //   delete oneMovie[0]['created_at'];
-  //   delete oneMovie[0]['updated_at'];
-  //   delete oneMovie[0].trailerLink;
-  //   const chosenMovie = {
-  //     ...oneMovie[0],
-  //     movieId,
-  //     image: `${BASE_URL}${image.url}`,
-  //     thumbnail: `${BASE_URL}${image.formats.thumbnail.url}`,
-  //     trailer
-  //   };
-  //   console.log(chosenMovie);
-  //   mainApi.saveMovie(chosenMovie);
-  // }
 
   const deleteFilmFromTheBase = async (id) => {
     try {
@@ -439,6 +419,11 @@ function App() {
     setDay(!day);
   }
 
+  if (isLoggedIn === null) {
+    return (
+      <div>Loading</div>
+    )
+  }
   return (
     <ThemeContext.Provider value={day} >
 

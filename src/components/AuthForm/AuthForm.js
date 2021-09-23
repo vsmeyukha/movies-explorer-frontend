@@ -1,15 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ThemeContext from '../../contexts/ThemeContext';
+import { useFormWithValidation } from '../../hooks/validation';
 
 function AuthForm(props) {
   const day = React.useContext(ThemeContext);
 
+  const validation = useFormWithValidation();
+
   const submitForm = (e) => {
     e.preventDefault();
-    props.onSubmit(props.email, props.password, props.name);
-    console.log(props.email);
-    console.log(props.password);
+    props.onSubmit(validation.values.email, validation.values.password, props.name);
+    console.log(validation.values.email);
+    console.log(validation.values.password);
     console.log(props.name);
   }
 
@@ -30,10 +33,12 @@ function AuthForm(props) {
             id="email"
             placeholder="email@email.ru"
             type="email"
-            value={props.email}
-            onChange={props.handleEmailChange}
+            value={validation.values.email || ''}
+            onChange={validation.handleChange}
             required
+            name="email"
           ></input>
+          {!validation.isValid && <span className="auth-form__caution">{`${validation.errors.email || ''}`}</span>}
           <label
             className="auth-form__label"
             htmlFor="password"
@@ -42,14 +47,18 @@ function AuthForm(props) {
             className={`auth-form__input ${!day && `auth-form__input_black`}`}
             id="password"
             type="password"
-            value={props.password}
-            onChange={props.handlePasswordChange}
+            value={validation.values.password || ''}
+            onChange={validation.handleChange}
             required
+            minLength="6"
+            name="password"
           ></input>
+          {!validation.isValid && <span className="auth-form__caution">{`${validation.errors.password || ''}`}</span>}
         </fieldset>
         <button
           type="submit"
           className="auth-form__submit"
+          disabled={!validation.isValid}
         >{props.buttonText}</button>
       </form>
       <div className="auth-form__link-container">

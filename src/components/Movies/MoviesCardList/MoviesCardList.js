@@ -7,7 +7,7 @@ function MoviesCardList(props) {
   // ? отрисовка карточки
   const renderCard = movie => (
     <MoviesCard
-      key={`movie${movie.id}`}
+      key={`movie_${movie.id}`}
       identificator={movie.id}
       title={movie.nameRU}
       duration={movie.duration}

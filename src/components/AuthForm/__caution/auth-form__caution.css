@@ -1,0 +1,8 @@
+.auth-form__caution {
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 13px;
+  color: #FF004D;
+  text-align: left;
+
+  margin-top: 10px;
+}
