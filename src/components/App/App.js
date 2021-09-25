@@ -428,7 +428,11 @@ function App() {
 
         <div className={`page ${!day && `page_black`}`}>
 
-          <Header onMenuClick={handleMenuOpenClick} changeTheme={changeTheme} />
+          <Header
+            onMenuClick={handleMenuOpenClick}
+            changeTheme={changeTheme}
+            isLoggedIn={isLoggedIn}
+          />
           
           <Switch>
 
