@@ -36,7 +36,6 @@ export function useFormWithValidation() {
     setValues({...values, [name]: value});
     setErrors({...errors, [name]: target.validationMessage || emailErrMessage });
     setIsValid(handleIsValid(event));
-    console.log(errors);
   };
 
   return { values, handleChange, errors, isValid };

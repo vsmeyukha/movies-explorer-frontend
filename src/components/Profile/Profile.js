@@ -1,6 +1,7 @@
 import React from 'react';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import ThemeContext from '../../contexts/ThemeContext';
+import { useFormWithValidation } from '../../hooks/validation';
 
 function Profile(props) {
   // ? контекст темы оформления
@@ -10,15 +11,25 @@ function Profile(props) {
   const thisUser = React.useContext(CurrentUserContext);
   console.log(thisUser);
 
+  // ? валидация
+  const validation = useFormWithValidation();
+
+  const email = validation.values.email;
+  const username = validation.values.username;
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    props.handleUpdateUser(props.email, props.name);
+    props.handleUpdateUser(
+      email || thisUser.email,
+      username || thisUser.name
+    );
   }
 
   const handleDisabled = () => {
-    if (props.name === thisUser.name || props.email === thisUser.email) {
+    if (
+      username === undefined && email === undefined) {
       return true;
-    }
+    } else return false;
   }
 
   return (
@@ -29,26 +40,35 @@ function Profile(props) {
         onSubmit={handleSubmit}
       >
         <fieldset className="profile__fieldset">
-          <label htmlFor="user-name" className="profile__label">Имя</label>
+          <label
+            htmlFor="user-name"
+            className="profile__label"
+          >Имя</label>
           <input
             type="text"
             className={`profile__input ${!day && `profile__input_black`}`}
             id="user-name"
-            value={props.name}
-            onChange={props.handleNameChange}
+            value={username || thisUser.name}
+            onChange={validation.handleChange}
             placeholder={thisUser.name}
+            name="username"
           ></input>
         </fieldset>
         <div className="profile__borderline"></div>
         <fieldset className="profile__fieldset">
-          <label htmlFor="user-email" className="profile__label">Почта</label>
+          <label
+            htmlFor="user-email"
+            className="profile__label"
+          >Почта</label>
           <input
             type="email"
+            name="email"
             className={`profile__input ${!day && `profile__input_black`}`}
             id="user-email"
-            value={props.email}
-            onChange={props.handleEmailChange}
+            value={email || thisUser.email}
+            onChange={validation.handleChange}
             placeholder={thisUser.email}
+            title="Адрес электронной почты должен содержать часть до @, часть после @, точку и национальный домен после точки"
           ></input>
         </fieldset>
         <button
