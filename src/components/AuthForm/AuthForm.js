@@ -37,6 +37,7 @@ function AuthForm(props) {
             onChange={validation.handleChange}
             required
             name="email"
+            title="Адрес электронной почты должен содержать часть до @, часть после @, точку и национальный домен после точки"
           ></input>
           {!validation.isValid && <span className="auth-form__caution">{`${validation.errors.email || ''}`}</span>}
           <label
@@ -52,6 +53,7 @@ function AuthForm(props) {
             required
             minLength="6"
             name="password"
+            title="Пароль должен быть не менее 6 символов в длину"
           ></input>
           {!validation.isValid && <span className="auth-form__caution">{`${validation.errors.password || ''}`}</span>}
         </fieldset>

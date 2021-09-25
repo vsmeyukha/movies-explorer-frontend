@@ -1,4 +1,5 @@
 import React from 'react';
+import {email as emailCheck} from 'is_js';
 
 //хук управления формой
 export function useForm() {
@@ -20,13 +21,22 @@ export function useFormWithValidation() {
   const [errors, setErrors] = React.useState({});
   const [isValid, setIsValid] = React.useState(false);
 
+  const handleIsValid = (event) => {
+    if (event.target.closest("form").checkValidity() && emailCheck(values.email)) {
+      return true;
+    } return false;
+  }
+
+  const emailErrMessage = emailCheck(values.email) ? '' : 'Email-адрес должен содержать национальный домен после точки';
+
   const handleChange = (event) => {
     const target = event.target;
     const name = target.name;
     const value = target.value;
     setValues({...values, [name]: value});
-    setErrors({...errors, [name]: target.validationMessage });
-    setIsValid(target.closest("form").checkValidity());
+    setErrors({...errors, [name]: target.validationMessage || emailErrMessage });
+    setIsValid(handleIsValid(event));
+    console.log(errors);
   };
 
   return { values, handleChange, errors, isValid };

@@ -33,11 +33,11 @@ function Register(props) {
         >
           <label
             className="auth-form__label"
-            htmlFor="name"
+            htmlFor="username"
           >Имя</label>
           <input
             className={`auth-form__input ${!day && `auth-form__input_black`}`}
-            id="name"
+            id="username"
             required
             placeholder="Введите ваше имя"
             value={validation.values.username || ''}
