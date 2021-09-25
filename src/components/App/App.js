@@ -1,6 +1,6 @@
 // ? импортируем инфраструктуру
 import React from 'react';
-import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
+import { Route, Switch, useHistory, useLocation, Redirect } from 'react-router-dom';
 import omit from 'lodash/omit';
 
 // ? импортируем компоненты
@@ -498,28 +498,41 @@ function App() {
             />
 
             <Route path="/signin">
-              <SignIn
-                handleAuthorization={handleAuthorization}
-                email={email}
-                password={password}
-                handleEmailChange={handleEmailChange}
-                handlePasswordChange={handlePasswordChange}
-              />
+              {
+                isLoggedIn
+                  ?
+                  <Redirect to="/movies" />
+                  :
+                  <SignIn
+                
+                    handleAuthorization={handleAuthorization}
+                    email={email}
+                    password={password}
+                    handleEmailChange={handleEmailChange}
+                    handlePasswordChange={handlePasswordChange}
+                  />
+              }
             </Route>
 
             <Route path="/signup">
-              <Register
-                handleRegistration={handleRegistration}
-                name={name}
-                email={email}
-                password={password}
-                handleEmailChange={handleEmailChange}
-                handlePasswordChange={handlePasswordChange}
-                handleNameChange={handleNameChange}
-                errorHappened={errorHappened}
-                errorText={errorText}
-                deleteError={deleteError}
-              />
+              {
+                isLoggedIn
+                  ?
+                  <Redirect to="/movies" />
+                  :
+                  <Register
+                    handleRegistration={handleRegistration}
+                    name={name}
+                    email={email}
+                    password={password}
+                    handleEmailChange={handleEmailChange}
+                    handlePasswordChange={handlePasswordChange}
+                    handleNameChange={handleNameChange}
+                    errorHappened={errorHappened}
+                    errorText={errorText}
+                    deleteError={deleteError}
+                  />
+              }
             </Route>
 
             <Route path="*">
