@@ -186,7 +186,7 @@ function App() {
 
   const location = useLocation();
 
-  // ? остается написать эффект, обращающийся к АПИ за значениями юзера, чтобы записать их в контекст юзера
+  // ? эффект первичного залогина. делаем запрос к АПИ за данными пользователя, записываем их в контекст CurrentUser и переключаем флаг залогина
   React.useEffect(() => {
     function authForTheFirstTime() {
       mainApi.getUserData()
@@ -195,9 +195,9 @@ function App() {
           console.log(data);
           handleLogin();
           setCurrentUser(data);
-          if (location.pathname === '/') {
-            history.push('/movies');
-          }
+          // if (location.pathname === '/') {
+          //   history.push('/movies');
+          // }
         } else {
           console.log('не пришли данные о юзере');
         }
@@ -208,13 +208,15 @@ function App() {
       });
     };
 
-    // ? вызывать токенчек только когда пользоваетль не залогинен 
-    if (!isLoggedIn) {
+    // ? вызывать эффект только когда пользователь не залогинен 
+    if (isLoggedIn !== true) {
+      console.log('status isLoggedIn:');
+      console.log(isLoggedIn);
       authForTheFirstTime();
     } return;
   }, [isLoggedIn, history, location.pathname]);
 
-  // ! РАБОТА С ОБЩЕЙ БАЗОЙ ФИЛЬМОВ: ОТОБРАЖЕНИЕ, ПОИСК, ФИЛЬТРАЦИЯ
+  // ! ОТОБРАЖЕНИЕ РАЗНОГО ЧИСЛА КАРТОЧЕК В ЗАВИСИМОСТИ ОТ РАЗРЕШЕНИЯ ЭКРАНА
 
   // ? реализуем загрузку разного числа фильмов в зависимости от ширины экрана
   const [config, setConfig] = React.useState({});
@@ -251,8 +253,9 @@ function App() {
       }
     }, []);
 
-  // ? реализация загрузки фильмов из общей базы
-  // ? на стейт-переменных
+  // !РАБОТА С ОБЩЕЙ БАЗОЙ ФИЛЬМОВ: ОТОБРАЖЕНИЕ, ПОИСК, ФИЛЬТРАЦИЯ
+
+  // ? реализация загрузки фильмов из общей базы на стейт-переменных
   const [moviesList, setMoviesList] = React.useState([]);
 
   const getMoviesList = async () => {
@@ -357,7 +360,7 @@ function App() {
     const getSavedMovies = async () => {
       const list = await mainApi.getInitialSavedMovies();
       setSavedMoviesList(list);
-      console.log('hhh');
+
     }
     if (isLoggedIn) {
       getSavedMovies();
@@ -393,12 +396,6 @@ function App() {
     }
   }
 
-  // const deleteFilmFromTheBase = async (id) => {
-  //     await mainApi.deleteMovie(id);
-  //     const moviesWithoutTheDeletedFilm = savedMoviesList.filter(movie => movie.movieId !== id);
-  //     setSavedMoviesList(moviesWithoutTheDeletedFilm);
-  // }
-  
   // ! ДОПОЛНИТЕЛЬНЫЙ ФУНКЦИОНАЛ: ОТКРЫТИЕ И ЗАКРЫТИЕ МЕНЮ, ВЫБОР ЦВЕТОВОЙ ТЕМЫ
 
   // ? реализация работы всплывающего меню-бургера на малых разрешениях

@@ -1,1 +1,1 @@
-Ссылка на сайт: https://victorsmeyukha-diploma.nomoredomains.monster/movies
+Ссылка на сайт: https://victorsmeyukha-diploma.nomoredomains.monster
