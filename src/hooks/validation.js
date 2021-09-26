@@ -22,19 +22,32 @@ export function useFormWithValidation() {
   const [isValid, setIsValid] = React.useState(false);
 
   const handleIsValid = (event) => {
-    if (event.target.closest("form").checkValidity() && emailCheck(values.email)) {
-      return true;
-    } return false;
+    if (event.target.name === 'email') {
+      if (event.target.closest("form").checkValidity() && emailCheck(values.email)) {
+        return true;
+      } return false;
+    } else
+      if (event.target.closest("form").checkValidity()) {
+        return true;
+      } return false;
   }
 
   const emailErrMessage = emailCheck(values.email) ? '' : 'Email-адрес должен содержать национальный домен после точки';
+
+  const whatErrorToShow = (event) => {
+    if (event.target.name === 'email') {
+      if (event.target.validationMessage) {
+        return event.target.validationMessage;
+      } else return emailErrMessage;
+    } else return event.target.validationMessage;
+  }
 
   const handleChange = (event) => {
     const target = event.target;
     const name = target.name;
     const value = target.value;
     setValues({...values, [name]: value});
-    setErrors({...errors, [name]: target.validationMessage || emailErrMessage });
+    setErrors({...errors, [name]: whatErrorToShow(event) });
     setIsValid(handleIsValid(event));
   };
 
