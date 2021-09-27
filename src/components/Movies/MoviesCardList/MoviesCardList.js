@@ -3,20 +3,61 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import { BASE_URL } from '../../../utils/consts';
 
 function MoviesCardList(props) {
+
+  // ? отрисовка карточки
+  const renderCard = movie => (
+    <MoviesCard
+      key={`movie_${movie.id}`}
+      identificator={movie.id}
+      title={movie.nameRU}
+      duration={movie.duration}
+      imgSrc={`${BASE_URL}${movie.image.url}`}
+      saveFilm={props.saveFilm}
+      saveFilmToTheBase={props.saveFilmToTheBase}
+      movie={movie}
+      trailer={movie.trailerLink}
+      isFilmSaved={props.savedMoviesList.some((film) => {
+        return film.movieId === movie.id;
+      })}
+      deleteFilmFromTheBase={props.deleteFilmFromTheBase}
+      getMoviesList={props.getMoviesList}
+      setErrMessage={props.setErrMessage}
+      setErrorHappened={props.setErrorHappened}
+    />
+  )
+
+  // ? отрисовка "ничего не найдено"
+  const renderNothingFound = () => {
+    return (
+      <section className="movies-card-list__nothing-found-container">
+        <h2 className="movies-card-list__nothing-found-title">!</h2>
+        <h3 className="movies-card-list__nothing-found-text">Ничего нет!</h3>
+      </section>
+    )
+  }
+
+  // ? отрисовка списка карточек в зависимости от длины списка и фильтра короткометражек
+
+  const renderCardList = arr => arr.map(movie => renderCard(movie));
+
+  // ? не самое крутое решение, моргает nothingFound до загрузки. пока неясно, как пофиксить, если мы отправляем при первом рендере запрос к АПИ
   return (
     <section className="movies-card-list">
-      {props.filteredMoviesList.map((movie) => {
-        return (
-          <MoviesCard
-            key={movie.id}
-            title={movie.nameRU}
-            time={movie.duration}
-            imgSrc={`${BASE_URL}${movie.image.url}`}
-            saveFilm={props.saveFilm}
-            isFilmSaved={props.isFilmSaved}
-          />
-        )
-      })}
+      {
+        props.filteredMoviesList.length === 0
+          ?
+          renderNothingFound()
+          :
+          props.shortFilms
+            ?
+            props.filteredShortMoviesList.length === 0
+              ?
+              renderNothingFound()
+              :
+              renderCardList(props.filteredShortMoviesList)
+            :
+            renderCardList(props.preparedMoviesList)
+      }
     </section>
   );
 };

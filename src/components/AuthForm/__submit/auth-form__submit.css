@@ -11,4 +11,17 @@
   margin-top: 176px;
 
   height: 45px;
+
+  transition: .3s;
+}
+
+.auth-form__submit:hover {
+  cursor: pointer;
+  background-color: #2BE080;
+  transition: .3s;
+}
+
+.auth-form__submit:disabled {
+  background-color: grey;
+  cursor: default;
 }

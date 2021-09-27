@@ -1,0 +1,19 @@
+@import url(./__message-container/popup__message-container.css);
+@import url(./__message/popup__message.css);
+@import url(./__try-again-button/popup__try-again-button.css);
+
+.popup {
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, .5);
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  z-index: 1000;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

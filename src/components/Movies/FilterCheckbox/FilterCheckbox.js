@@ -18,7 +18,7 @@ function FilterCheckBox(props) {
   return (
       <fieldset className={`filter-checkbox ${checkBoxForFilmsPage}`}>
         <label htmlFor="short-film" className={`filter-checkbox__label ${day && `link_white`}`}>{props.checkboxName}</label>
-      <input type="checkbox" id="short-film" className="filter-checkbox__input" onClick={props.clickFunction}></input>
+        <input type="checkbox" id="short-film" className="filter-checkbox__input" value={props.shortFilms} onClick={props.handleShortFilmsSearch}></input>
       </fieldset>
 
   );

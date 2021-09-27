@@ -10,5 +10,6 @@ const headerSelectors = {
 }
 
 const BASE_URL = 'https://api.nomoreparties.co';
+const MOVIES_URL = '/beatfilm-movies';
 
-export { headerSelectors, BASE_URL };
+export { headerSelectors, BASE_URL, MOVIES_URL };

@@ -26,5 +26,7 @@
 
 @import url(./components/PageNotFound/page-not-found.css);
 
+@import url(./components/Popup/popup.css);
+
 @import url(./styles/styles.css);
 

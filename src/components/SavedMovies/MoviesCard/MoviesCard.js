@@ -1,15 +1,28 @@
 import React from 'react';
-import imgPath from '../../../images/saved-film-pic.jpg';
 
 function MoviesCard(props) {
+  const handleDelete = () => {
+    props.deleteFilmFromTheBase(props.identificator);
+  }
+
   return (
     <div className="movies-card">
       <div className="movies-card__info">
-        <p className="movies-card__title">Kill Bill</p>
-        <p className="movies-card__time">1 hour 42 minutes</p>
+        <p className="movies-card__title">{props.title}</p>
+        <p className="movies-card__time">{props.time} мин</p>
       </div>
-      <img src={imgPath} className="movies-card__photo" alt="Some film"></img>
-      <button className="movies-card__like" onClick={props.saveFilm}>
+      <a
+        href={props.trailer}
+        target="_blank"
+        rel="noreferrer"
+      >
+        <img
+          src={props.imgSrc}
+          className="movies-card__photo"
+          alt={props.title}
+        ></img>
+      </a>
+      <button className="movies-card__like" onClick={handleDelete}>
         <p className="movies-card__like-text movies-card__like-text_saved">x</p>
       </button>
     </div>

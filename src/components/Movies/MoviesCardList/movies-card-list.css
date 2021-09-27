@@ -1,3 +1,7 @@
+@import url(./__nothing-found-container/movies-card-list__nothing-found-container.css);
+@import url(./__nothing-found-text/movies-card-list__nothing-found-text.css);
+@import url(./__nothing-found-title/movies-card-list__nothing-found-title.css);
+
 .movies-card-list {
   width: 100%;
   box-sizing: border-box;

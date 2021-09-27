@@ -1,8 +1,9 @@
 import React from 'react';
 
-function MoreFilmsButton() {
+function MoreFilmsButton(props) {
+
   return (
-    <button className="more-films-button">Ещё</button>
+    <button type="button" className="more-films-button" onClick={props.handleAddMovies}>Ещё</button>
   );
 };
 

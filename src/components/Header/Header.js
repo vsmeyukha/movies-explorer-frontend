@@ -14,11 +14,11 @@ function Header(props) {
     isHeader = true;
   }
 
-  let isLoggedIn;
+  // let isLoggedIn;
 
-  if (location.pathname === '/movies' || location.pathname === '/saved-movies' || location.pathname === '/profile') {
-    isLoggedIn = true;
-  }
+  // if (location.pathname === '/movies' || location.pathname === '/saved-movies' || location.pathname === '/profile') {
+  //   isLoggedIn = true;
+  // }
 
   const day = React.useContext(ThemeContext);
 
@@ -36,10 +36,10 @@ function Header(props) {
     return (
       <header className={setHeaderSelector()}>
         <Link to="/">
-          <div className={!isLoggedIn ? headerSelectors.logo : `${headerSelectors.logo} ${headerSelectors.logoLoggedIn}`}></div>
+          <div className={!props.isLoggedIn ? headerSelectors.logo : `${headerSelectors.logo} ${headerSelectors.logoLoggedIn}`}></div>
         </Link>
         {
-          !isLoggedIn
+          !props.isLoggedIn
             ?
             <HeaderNotLoggedIn changeTheme={props.changeTheme}/>
             :

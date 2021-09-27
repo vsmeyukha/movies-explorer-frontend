@@ -33,19 +33,19 @@
 }
 
 .profile__input_black::-webkit-input-placeholder {
-  color: white;
+  color: grey;
 }
 
 .profile__input_black::-moz-placeholder {
-  color: white;
+  color: grey;
 }
 
 .profile__input_black::-ms-input-placeholder {
-  color: white;
+  color: grey;
 }
 
 .profile__input_black::placeholder {
-  color: white;
+  color: grey;
 } 
 
 .profile__input_black {
