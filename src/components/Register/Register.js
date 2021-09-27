@@ -11,7 +11,7 @@ function Register(props) {
   const day = React.useContext(ThemeContext);
 
   const thisUser = React.useContext(CurrentUserContext);
-  
+
   return (
     <>
       <section className="sign-in-page">
