@@ -58,17 +58,16 @@ function Movies(props) {
             shortFilms={props.shortFilms}
             preparedMoviesList={props.preparedMoviesList}
             saveFilmToTheBase={props.saveFilmToTheBase}
-          savedMoviesList={props.savedMoviesList}
-          deleteFilmFromTheBase={props.deleteFilmFromTheBase}
-          getMoviesList={props.getMoviesList}
-          isFilmSaved={props.isFilmSaved}
-          setErrMessage={props.setErrMessage}
-          setErrorHappened={props.setErrorHappened}
+            savedMoviesList={props.savedMoviesList}
+            deleteFilmFromTheBase={props.deleteFilmFromTheBase}
+            getMoviesList={props.getMoviesList}
+            isFilmSaved={props.isFilmSaved}
+            setErrMessage={props.setErrMessage}
+            setErrorHappened={props.setErrorHappened}
           />
           {props.hasAdditionalFilms
             &&
             <MoreFilmsButton
-              handleShowMoreMovies={props.handleShowMoreMovies}
               handleAddMovies={props.handleAddMovies}
             />
           }

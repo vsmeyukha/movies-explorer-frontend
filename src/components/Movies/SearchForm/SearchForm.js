@@ -35,7 +35,6 @@ function SearchForm(props) {
           <input
             type="text"
             placeholder="Фильм"
-            required
             min="2"
             max="30"
             name="film"

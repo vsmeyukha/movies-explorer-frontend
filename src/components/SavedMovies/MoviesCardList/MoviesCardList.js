@@ -38,10 +38,13 @@ function MoviesCardList(props) {
         :
         props.shortFilms
           ?
-          renderCardList(props.onlyShortSavedMovies)
+          props.onlyShortSavedMovies.length === 0
+            ?
+            renderNoSavedFilms()
+            :
+            renderCardList(props.onlyShortSavedMovies)
           :
           renderCardList(props.savedMoviesList)
-        
       }
     </section>
   );

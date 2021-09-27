@@ -300,6 +300,12 @@ function App() {
   // ? написать коммент
   const handleAddMovies = () => {
     setTotalFilmsCount((previousAdditionalFilmsCount) => previousAdditionalFilmsCount + moviesPerRow);
+    console.log('total films count:');
+    console.log(totalFilmsCount);
+    console.log('prepared movies list length:');
+    console.log(preparedMoviesList);
+    console.log('filtered movies list length:');
+    console.log(filteredMoviesList);
   }
 
   // ? в эту переменную складывается результат работы функции filterMovies при каждом изменении любой из dependencies
@@ -309,7 +315,7 @@ function App() {
   const preparedMoviesList = React.useMemo(() => filteredMoviesList.slice(0, totalFilmsCount), [filteredMoviesList, totalFilmsCount]);
 
   // ? написать коммент
-  const hasAdditionalFilms = filteredMoviesList.length > 12;
+  const hasAdditionalFilms = filteredMoviesList.length > 12 && filteredMoviesList.length > totalFilmsCount;
 
   // ? формируем список короткометражек
   const filterShortMovies = (arr) => {
